@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>Innovative Toll</title>
+	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+	<link rel="icon" href="../assets/img/icon.ico" type="image/x-icon"/>
+
+	<!-- Fonts and icons -->
+	<script src="../assets/js/plugin/webfont/webfont.min.js"></script>
+	<script>
+		WebFont.load({
+			google: {"families":["Lato:300,400,700,900"]},
+			custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['../assets/css/fonts.min.css']},
+			active: function() {
+				sessionStorage.fonts = true;
+			}
+		});
+	</script>
+
+	<!-- CSS Files -->
+	<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../assets/css/atlantis.min.css">
+
+	<!-- CSS Just for demo purpose, don't include it in your project -->
+	<link rel="stylesheet" href="../assets/css/demo.css">
+</head>
+<body>
+	<div class="wrapper overlay-sidebar">
+		<div class="main-header">
+			<!-- Logo Header -->
+			<div class="logo-header" data-background-color="white">
+				
+				<a href="index.html" class="logo">
+					<img src="../assets/img/logo-footer.png" alt="navbar brand" class="navbar-brand">
+				</a>
+				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon">
+						<i class="icon-menu"></i>
+					</span>
+				</button>
+				<button class="topbar-toggler more"><i class="icon-options-vertical"></i></button>
+				<!-- <div class="nav-toggle">
+					<button class="btn btn-toggle toggle-sidebar">
+						<i class="icon-menu"></i>
+					</button>
+				</div> -->
+			</div>
+			<!-- End Logo Header -->
+
+			<!-- Navbar Header -->
+			<nav class="navbar navbar-header navbar-expand-lg" data-background-color="white">
+				
+				<div class="container-fluid">
+							<div class="ml-md-auto py-2 py-md-0">
+								<ul class="nav nav-pills nav-info" id="pills-tab" role="tablist">
+										<li class="nav-item">
+											<a class="nav-link active" id="pills-home-tab-icon" data-toggle="pill" href="#pills-home-icon" role="tab" aria-controls="pills-home-icon" aria-selected="true">
+												<i class="fas fa-home"></i> Home</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false"> <i class="fas fa-car"></i> Vehicles</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false"><i class="fas fa-road"></i> Transactions</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false"><i class="fas fa-ticket-alt"></i> Citations</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false"><i class="fas fa-file-invoice-dollar"></i> Invoices</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false"><i class="fas fa-truck-pickup"></i> Transponder fulfilment</a>
+										</li>
+									</ul>
+							</div>
+							
+					<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
+						<li class="nav-item toggle-nav-search hidden-caret">
+							<a class="nav-link" data-toggle="collapse" href="#search-nav" role="button" aria-expanded="false" aria-controls="search-nav">
+								<i class="fa fa-search"></i>
+							</a>
+						</li>
+						<li class="nav-item dropdown hidden-caret">
+							<a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
+								<i class="fas fa-layer-group"></i>
+							</a>
+							<div class="dropdown-menu quick-actions quick-actions-info animated fadeIn">
+								<div class="quick-actions-header">
+									<span class="title mb-1">Quick Actions</span>
+									<span class="subtitle op-8">Shortcuts</span>
+								</div>
+								<div class="quick-actions-scroll scrollbar-outer">
+									<div class="quick-actions-items">
+										<div class="row m-0">
+											<a class="col-6 col-md-4 p-0" href="#">
+												<div class="quick-actions-item">
+													<i class="flaticon-file-1"></i>
+													<span class="text">Upload Fleets</span>
+												</div>
+											</a>
+											<a class="col-6 col-md-4 p-0" href="#">
+												<div class="quick-actions-item">
+													<i class="flaticon-database"></i>
+													<span class="text">Order transponder</span>
+												</div>
+											</a>
+											<a class="col-6 col-md-4 p-0" href="#">
+												<div class="quick-actions-item">
+													<i class="flaticon-pen"></i>
+													<span class="text">Transponder orders</span>
+												</div>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+						<li class="nav-item dropdown hidden-caret">
+							<a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
+								<div class="avatar-sm">
+									<img src="../assets/img/profile.jpg" alt="..." class="avatar-img rounded-circle">
+								</div>
+							</a>
+							<ul class="dropdown-menu dropdown-user animated fadeIn">
+								<div class="dropdown-user-scroll scrollbar-outer">
+									<li>
+										<div class="user-box">
+											<div class="avatar-lg"><img src="../assets/img/profile.jpg" alt="image profile" class="avatar-img rounded"></div>
+											<div class="u-text">
+												<h4>Hizrian</h4>
+												<p class="text-muted">hello@example.com</p>
+											</div>
+										</div>
+									</li>
+									<li>
+										<a class="dropdown-item" href="#">Account Setting</a>
+										<div class="dropdown-divider"></div>
+										<a class="dropdown-item" href="#">Logout</a>
+									</li>
+								</div>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</nav>
+			<!-- End Navbar -->
+		</div>
+
+		<div class="main-panel">
+			<div class="content">
+				<div class="panel-header bg-primary-gradient">
+					<div class="page-inner py-5">
+						<div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+							<div>
+								<h2 class="text-white pb-2 fw-bold">Dashboard</h2>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="page-inner mt--5">
+					<div class="row mt--2">
+						<div class="col-md-6">
+							<div class="card full-height">
+								<div class="card-header">
+									<div class="card-title">Summary (January 2021)</div>
+								</div>
+								<div class="card-body pb-0">
+									<div class="d-flex">
+										<div class="avatar">
+											<i class="far fa-credit-card"></i>
+										</div>
+										<div class="flex-1 pt-1 ml-2">
+											<h6 class="fw-bold mb-1">Account Balance</h6>
+										</div>
+										<div class="d-flex ml-auto align-items-center">
+											<h3 class="text-info fw-bold">-$17</h3>
+										</div>
+									</div>
+									<div class="d-flex">
+										<div class="avatar">
+											<i class="fas fa-car-alt"></i>
+										</div>
+										<div class="flex-1 pt-1 ml-2">
+											<h6 class="fw-bold mb-1">Active Vehicles</h6>
+										</div>
+										<div class="d-flex ml-auto align-items-center">
+											<h3 class="text-info fw-bold">17</h3>
+										</div>
+									</div>
+									<div class="d-flex">
+										<div class="avatar">
+											<i class="fas fa-car-crash"></i>
+										</div>
+										<div class="flex-1 pt-1 ml-2">
+											<h6 class="fw-bold mb-1">Closed Vehicles</h6>
+										</div>
+										<div class="d-flex ml-auto align-items-center">
+											<h3 class="text-info fw-bold">7</h3>
+										</div>
+									</div>
+									<div class="d-flex">
+										<div class="avatar">
+											<i class="fas fa-credit-card"></i>
+										</div>
+										<div class="flex-1 pt-1 ml-2">
+											<h6 class="fw-bold mb-1">Total Transactions</h6>
+										</div>
+										<div class="d-flex ml-auto align-items-center">
+											<h3 class="text-info fw-bold">265</h3>
+										</div>
+									</div>
+									<div class="d-flex">
+										<div class="avatar">
+											<i class="far fa-credit-card"></i>
+										</div>
+										<div class="flex-1 pt-1 ml-2">
+											<h6 class="fw-bold mb-1">Current Invoice (Jun)</h6>
+										</div>
+										<div class="d-flex ml-auto align-items-center">
+											<h3 class="text-info fw-bold">$ 965</h3>
+										</div>
+									</div>
+									<div class="separator-dashed"></div>
+									<div class="d-flex">
+										<div class="avatar">
+											<img src="../assets/img/logoproduct.svg" alt="..." class="avatar-img rounded-circle">
+										</div>
+										<div class="flex-1 pt-1 ml-2">
+											<h6 class="fw-bold mb-1">J.CO Donuts</h6>
+											<small class="text-muted">The Best Donuts</small>
+										</div>
+										<div class="d-flex ml-auto align-items-center">
+											<h3 class="text-info fw-bold">$300</h3>
+										</div>
+									</div>
+									<div class="separator-dashed"></div>
+									<div class="d-flex">
+										<div class="avatar">
+											<img src="../assets/img/logoproduct3.svg" alt="..." class="avatar-img rounded-circle">
+										</div>
+										<div class="flex-1 pt-1 ml-2">
+											<h6 class="fw-bold mb-1">Ready Pro</h6>
+											<small class="text-muted">Bootstrap 4 Admin Dashboard</small>
+										</div>
+										<div class="d-flex ml-auto align-items-center">
+											<h3 class="text-info fw-bold">$350</h3>
+										</div>
+									</div>
+									<div class="separator-dashed"></div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="card">
+								<div class="card-header">
+									<div class="card-head-row">
+										<div class="card-title">Daily Toll Spending (January 2021)</div>
+										<div class="card-tools">
+											<a href="#" class="btn btn-info btn-border btn-round btn-sm mr-2">
+												<span class="btn-label">
+													<i class="fa fa-pencil"></i>
+												</span>
+												Export
+											</a>
+											<a href="#" class="btn btn-info btn-border btn-round btn-sm">
+												<span class="btn-label">
+													<i class="fa fa-print"></i>
+												</span>
+												Print
+											</a>
+										</div>
+									</div>
+								</div>
+								<div class="card-body">
+									<div class="chart-container" style="min-height: 375px">
+										<canvas id="statisticsChart"></canvas>
+									</div>
+									<div id="myChartLegend"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="card">
+								<div class="card-header">
+									<div class="card-title">MTD Tollway Spending</div>
+								</div>
+								<div class="card-body">
+									<div class="chart-container">
+										<canvas id="doughnutChart" style="width: 50%; height: 50%"></canvas>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="card">
+								<div class="card-header">
+									<div class="card-title">YTD Tollway Spending (2021)</div>
+								</div>
+								<div class="card-body">
+									<div class="chart-container">
+										<canvas id="barChart"></canvas>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row row-card-no-pd">
+						<div class="col-md-12">
+							<div class="card">
+								<div class="card-header">
+									<div class="card-head-row card-tools-still-right">
+										<h4 class="card-title">MTD Top Vehicles</h4>
+										<div class="card-tools">
+											<button class="btn btn-icon btn-link btn-primary btn-xs"><span class="fa fa-angle-down"></span></button>
+											<button class="btn btn-icon btn-link btn-primary btn-xs btn-refresh-card"><span class="fa fa-sync-alt"></span></button>
+											<button class="btn btn-icon btn-link btn-primary btn-xs"><span class="fa fa-times"></span></button>
+										</div>
+									</div>
+									<p class="card-category">
+									Top Five highest spending vehicles</p>
+								</div>
+								<div class="card-body">
+									<div class="row">
+										<div class="col-md-12">
+											<div class="table-responsive table-hover table-sales">
+												<table class="table">
+													<tbody>
+														<tr>
+															<td>
+																<div class="flag">
+																	<img src="../assets/img/flags/id.png" alt="indonesia">
+																</div>
+															</td>
+															<td>Indonesia</td>
+															<td class="text-right">
+																2.320
+															</td>
+															<td class="text-right">
+																42.18%
+															</td>
+														</tr>
+														<tr>
+															<td>
+																<div class="flag">
+																	<img src="../assets/img/flags/us.png" alt="united states">
+																</div>
+															</td>
+															<td>USA</td>
+															<td class="text-right">
+																240
+															</td>
+															<td class="text-right">
+																4.36%
+															</td>
+														</tr>
+														<tr>
+															<td>
+																<div class="flag">
+																	<img src="../assets/img/flags/au.png" alt="australia">
+																</div>
+															</td>
+															<td>Australia</td>
+															<td class="text-right">
+																119
+															</td>
+															<td class="text-right">
+																2.16%
+															</td>
+														</tr>
+														<tr>
+															<td>
+																<div class="flag">
+																	<img src="../assets/img/flags/ru.png" alt="russia">
+																</div>
+															</td>
+															<td>Russia</td>
+															<td class="text-right">
+																1.081
+															</td>
+															<td class="text-right">
+																19.65%
+															</td>
+														</tr>
+														<tr>
+															<td>
+																<div class="flag">
+																	<img src="../assets/img/flags/cn.png" alt="china">
+																</div>
+															</td>
+															<td>China</td>
+															<td class="text-right">
+																1.100
+															</td>
+															<td class="text-right">
+																20%
+															</td>
+														</tr>
+														<tr>
+															<td>
+																<div class="flag">
+																	<img src="../assets/img/flags/br.png" alt="brazil">
+																</div>
+															</td>
+															<td>Brasil</td>
+															<td class="text-right">
+																640
+															</td>
+															<td class="text-right">
+																11.63%
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<footer class="footer">
+				<div class="container-fluid">
+					<div class="copyright ml-auto">
+						2021 <a href="https://www.innovativetoll.com">Innovativetoll</a>
+					</div>				
+				</div>
+			</footer>
+		</div>
+		
+	
+	</div>
+	<!--   Core JS Files   -->
+	<script src="../assets/js/core/jquery.3.2.1.min.js"></script>
+	<script src="../assets/js/core/popper.min.js"></script>
+	<script src="../assets/js/core/bootstrap.min.js"></script>
+
+	<!-- jQuery UI -->
+	<script src="../assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+	<script src="../assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+
+	<!-- jQuery Scrollbar -->
+	<script src="../assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+
+
+	<!-- Chart JS -->
+	<script src="../assets/js/plugin/chart.js/chart.min.js"></script>
+
+	<!-- jQuery Sparkline -->
+	<script src="../assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
+
+	<!-- Chart Circle -->
+	<script src="../assets/js/plugin/chart-circle/circles.min.js"></script>
+
+	<!-- Datatables -->
+	<script src="../assets/js/plugin/datatables/datatables.min.js"></script>
+
+	<!-- Bootstrap Notify -->
+	<script src="../assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+
+	<!-- jQuery Vector Maps -->
+	<script src="../assets/js/plugin/jqvmap/jquery.vmap.min.js"></script>
+	<script src="../assets/js/plugin/jqvmap/maps/jquery.vmap.world.js"></script>
+
+	<!-- Sweet Alert -->
+	<script src="../assets/js/plugin/sweetalert/sweetalert.min.js"></script>
+
+	<!-- Atlantis JS -->
+	<script src="../assets/js/atlantis.min.js"></script>
+
+	<!-- Atlantis DEMO methods, don't include it in your project! -->
+	<script src="../assets/js/setting-demo.js"></script>
+	<script src="../assets/js/demo.js"></script>
+	<script>
+		Circles.create({
+			id:'circles-1',
+			radius:45,
+			value:60,
+			maxValue:100,
+			width:7,
+			text: 5,
+			colors:['#f1f1f1', '#FF9E27'],
+			duration:400,
+			wrpClass:'circles-wrp',
+			textClass:'circles-text',
+			styleWrapper:true,
+			styleText:true
+		})
+
+		Circles.create({
+			id:'circles-2',
+			radius:45,
+			value:70,
+			maxValue:100,
+			width:7,
+			text: 36,
+			colors:['#f1f1f1', '#2BB930'],
+			duration:400,
+			wrpClass:'circles-wrp',
+			textClass:'circles-text',
+			styleWrapper:true,
+			styleText:true
+		})
+
+		Circles.create({
+			id:'circles-3',
+			radius:45,
+			value:40,
+			maxValue:100,
+			width:7,
+			text: 12,
+			colors:['#f1f1f1', '#F25961'],
+			duration:400,
+			wrpClass:'circles-wrp',
+			textClass:'circles-text',
+			styleWrapper:true,
+			styleText:true
+		})
+
+		var totalIncomeChart = document.getElementById('totalIncomeChart').getContext('2d'),
+		barChart = document.getElementById('barChart').getContext('2d'),
+		doughnutChart = document.getElementById('doughnutChart').getContext('2d');
+
+		var mytotalIncomeChart = new Chart(totalIncomeChart, {
+			type: 'bar',
+			data: {
+				labels: ["S", "M", "T", "W", "T", "F", "S", "S", "M", "T"],
+				datasets : [{
+					label: "Total Income",
+					backgroundColor: '#ff9e27',
+					borderColor: 'rgb(23, 125, 255)',
+					data: [6, 4, 9, 5, 4, 6, 4, 3, 8, 10],
+				}],
+			},
+			options: {
+				responsive: true,
+				maintainAspectRatio: false,
+				legend: {
+					display: false,
+				},
+				scales: {
+					yAxes: [{
+						ticks: {
+							display: false //this will remove only the label
+						},
+						gridLines : {
+							drawBorder: false,
+							display : false
+						}
+					}],
+					xAxes : [ {
+						gridLines : {
+							drawBorder: false,
+							display : false
+						}
+					}]
+				},
+			}
+		});
+		var myBarChart = new Chart(barChart, {
+			type: 'bar',
+			data: {
+				labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+				datasets : [{
+					label: "Sales",
+					backgroundColor: 'rgb(23, 125, 255)',
+					borderColor: 'rgb(23, 125, 255)',
+					data: [3, 2, 9, 5, 4, 6, 4, 6, 7, 8, 7, 4],
+				}],
+			},
+			options: {
+				responsive: true, 
+				maintainAspectRatio: false,
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero:true
+						}
+					}]
+				},
+			}
+		});
+
+		var myDoughnutChart = new Chart(doughnutChart, {
+			type: 'doughnut',
+			data: {
+				datasets: [{
+					data: [10, 20, 30],
+					backgroundColor: ['#f3545d','#fdaf4b','#1d7af3']
+				}],
+
+				labels: [
+				'Red',
+				'Yellow',
+				'Blue'
+				]
+			},
+			options: {
+				responsive: true, 
+				maintainAspectRatio: false,
+				legend : {
+					position: 'bottom'
+				},
+				layout: {
+					padding: {
+						left: 20,
+						right: 20,
+						top: 20,
+						bottom: 20
+					}
+				}
+			}
+		});
+
+		$('#lineChart').sparkline([105,103,123,100,95,105,115], {
+			type: 'line',
+			height: '70',
+			width: '100%',
+			lineWidth: '2',
+			lineColor: '#ffa534',
+			fillColor: 'rgba(255, 165, 52, .14)'
+		});
+
+		$(function () {
+		  $('[data-toggle="tooltip"]').tooltip()
+		})
+	</script>
+
+</body>
+</html>

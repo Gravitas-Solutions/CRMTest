@@ -1,0 +1,200 @@
+version: "3"
+services:
+  crm:
+    build: ./crm
+    image: crm:1.0.0
+    depends_on:
+      - mysql
+    environment:
+      VIRTUAL_HOST: clientarea.innovativetoll.com 
+      LETSENCRYPT_HOST: clientarea.innovativetoll.com 
+      LETSENCRYPT_EMAIL: admin@innovativetoll.com
+   
+    volumes:
+      - ./crm:/var/www/html/
+      - ./crm/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini:ro
+    expose:
+      - 80
+      - 443
+    container_name: innovative
+  
+  crm_test:
+    build: ./crm_test
+    image: crm_test:1.0.0
+    depends_on:
+      - mysql
+    environment:
+      VIRTUAL_HOST: crm.innovativesolutionstest.com 
+      LETSENCRYPT_HOST: crm.innovativesolutionstest.com 
+      LETSENCRYPT_EMAIL: admin@innovativetoll.com
+   
+    volumes:
+      - ./crm_test:/var/www/html/
+      - ./crm_test/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini:ro
+    expose:
+      - 80
+      - 443
+    container_name: crm_test
+
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: root
+      MYSQL_PASSWORD: L0gin*001
+    container_name: crm-db
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:4.7
+    depends_on:
+      - mysql
+    ports:
+      - "30002:80"
+    environment:
+      PMA_HOST: crm-db
+      PMA_PORT: 3306
+    volumes:
+      - /sessions
+    container_name: crm-phpmyadmin-db
+  
+  datawarehouse:
+    build: ./datawarehouse
+    image: datawarehouse:1.0.0
+    depends_on:
+      - mysql
+    environment:
+      VIRTUAL_HOST: warehouse.innovativetoll.com 
+      LETSENCRYPT_HOST: warehouse.innovativetoll.com 
+      LETSENCRYPT_EMAIL: admin@innovativetoll.com
+
+    volumes:
+      - ./datawarehouse:/var/www/html/
+      - ./datawarehouse/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini:ro
+    expose:
+      - 80
+      - 443
+    container_name: datawarehouse
+
+  docmanagement:
+    build: ./docmanagement
+    image: toll-process:1.0.0
+    depends_on:
+      - mysql
+    environment:
+      VIRTUAL_HOST: masterfiles.innovativetoll.com
+      LETSENCRYPT_HOST: masterfiles.innovativetoll.com 
+      LETSENCRYPT_EMAIL: admin@innovativetoll.com
+
+    volumes:
+      - ./docmanagement:/var/www/html/
+      - ./docmanagement/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini:ro
+    expose:
+      - 80
+      - 443
+    container_name: toll-process
+
+  website:
+    build: ./website
+    image: website:1.0.0
+    depends_on:
+      - mysql
+    environment: 
+      VIRTUAL_HOST: innovativetoll.com,www.innovativetoll.com
+      LETSENCRYPT_HOST: innovativetoll.com,www.innovativetoll.com 
+      LETSENCRYPT_EMAIL: admin@innovativetoll.com
+    volumes:
+      - ./website:/var/www/html/
+    expose:
+      - 80
+      - 443
+    restart: always
+    container_name: website
+
+  learning_center:
+    build: ./learning_center
+    image: timelog:1.0.0
+    depends_on:
+      - mysql
+    environment:
+      VIRTUAL_HOST: timelog.innovativetoll.com 
+      LETSENCRYPT_HOST: timelog.innovativetoll.com 
+      LETSENCRYPT_EMAIL: admin@innovativetoll.com
+    volumes:
+      - ./learning_center:/var/www/html/
+    expose:
+      - 80
+      - 443
+    container_name: learning-center
+  
+  5057_timelog:
+    build: ./5057_timelog
+    image: 5057_timelog:1.0.0
+    depends_on:
+      - mysql
+    environment:
+      VIRTUAL_HOST: timelog.5057businesscenter.com 
+      LETSENCRYPT_HOST: timelog.5057businesscenter.com
+      LETSENCRYPT_EMAIL: admin@5057businesscenter.com
+    volumes:
+      - ./5057_timelog:/var/www/html/
+    expose:
+      - 80
+      - 443
+    container_name: 5057-timelog
+
+  gravitas_timelog:
+    build: ./gravitas_timelog
+    image: gravitas_timelog:1.0.0
+    depends_on:
+      - mysql
+    environment:
+      VIRTUAL_HOST: timelog.gravitassolutionsltd.com 
+      LETSENCRYPT_HOST: timelog.gravitassolutionsltd.com 
+      LETSENCRYPT_EMAIL: admin@gravitassolutionsltd.com
+    volumes:
+      - ./gravitas_timelog:/var/www/html/
+    expose:
+      - 80
+      - 443
+    container_name: gravitas-timelog 
+  
+  portal:
+    build: ./portal
+    image: portal:1.0.0
+    depends_on:
+      - mysql
+    environment:
+      VIRTUAL_HOST: portal.innovativetoll.com 
+      LETSENCRYPT_HOST: portal.innovativetoll.com 
+      LETSENCRYPT_EMAIL: admin@innovativetoll.com
+    volumes:
+      - ./portal:/var/www/html/
+    expose:
+      - 80
+      - 443
+    container_name: portal
+
+  trucking_crm:
+    build: ./trucking-crm
+    image: trucking_crm:1.0.0
+    depends_on:
+      - mysql
+    environment:
+      VIRTUAL_HOST: crm.innovativetoll.com 
+      LETSENCRYPT_HOST: crm.innovativetoll.com 
+      LETSENCRYPT_EMAIL: admin@innovativetoll.com
+    volumes:
+      - ./trucking-crm:/var/www/html/
+      - ./trucking-crm/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini:ro
+    expose:
+      - 80
+      - 443
+    container_name: trucking_crm
+
+networks:
+  default:
+    external:
+      name: nginx-proxy
+
+
+
