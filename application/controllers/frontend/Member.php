@@ -807,7 +807,24 @@ class Member extends Auth_Controller
                 if (!$this->upload->do_upload('vehicles_file')) {
                     echo json_encode(['status' => false, 'msg' => $this->upload->display_errors('', '')]);
                 } else {
-                    echo json_encode(['status' => true, 'msg' => 'File uplaoded. Admin will review & add the vehicles onto the system']);
+
+                    $data['details'] = (object)[
+                         'client' =>  $client,
+                         'dept' => $dept,
+                         'uploader' => $uploader->first_name
+                         ];
+                    $body = $this->load->view('email/vehicle_upload', $data, TRUE);
+                    $from = 'client@innovativetoll.com';
+                    $to = 'ITSupport@gravitassolutionsltd.com';
+                    $cc = 'walter@gravitassolutionsltd.com';
+                    $subject = 'New Client Vehicle Upload';
+                    if($this->send_mail($from, $to, $subject, $body, $cc)){
+                            echo json_encode(['status' => true, 'msg' => 'File uplaoded. Email notification has been sent, admin will review & add the vehicles onto the system']);
+
+                    } else{
+                            //echo json_encode(array('status' => false, 'msg' => $this->email->print_debugger()));
+                            echo json_encode(['status' => true, 'msg' => 'File uplaoded. Admin will review & add the vehicles onto the system']);
+                    } 
                 }
             } else {
                 echo json_encode(['status' => false, 'msg' => 'Only excel files with extension .xls or .xlsx are allowed']);
@@ -955,7 +972,26 @@ class Member extends Auth_Controller
                 }
 
                 $this->member_model->upload_fulfilment($fulfilment_data);
-                echo json_encode(array('status' => true, 'msg' => '<p class="text-success text-center"><strong>Transponder order saved successfully</strong></p>'));
+                if ($status == 0) {
+                    $data['details'] = (object)[
+                        'client' =>  $this->db->select('organization')->from('clients')->where('client_id', $client->client_id)->get()->row()->organization
+                        ];
+                    $body = $this->load->view('email/transponder_request', $data, TRUE);
+                    $from = 'crm@innovativetoll.com';
+                    $to = 'fulfillment@innovativetoll.com, clients@innovativetoll.com, cynthia.wachira@innovativetoll.com, cheyenne.hughes@innovativetoll.com';
+                    $cc = 'pat@innovativetoll.com, ITSupport@gravitassolutionsltd.com';
+                    $subject = 'New transponder request';
+                    if($this->send_mail($from, $to, $subject, $body, $cc)){
+                         echo json_encode(array('status' => true, 'msg' => '<p class="text-success text-center"><strong>Transponder order saved successfully and email notification sent</strong></p>'));
+
+                    } else{
+                         echo json_encode(array('status' => false, 'msg' => $this->email->print_debugger()));
+
+                    }
+                } else {
+                     echo json_encode(array('status' => true, 'msg' => '<p class="text-success text-center"><strong>Transponder order saved successfully</strong></p>'));
+                }
+                // echo json_encode(array('status' => true, 'msg' => '<p class="text-success text-center"><strong>Transponder order saved successfully</strong></p>'));
             }
         }
     }
@@ -1090,7 +1126,27 @@ class Member extends Auth_Controller
             }
 
             $this->member_model->update_fulfilments(['fulfilment_id' => $fulfilment_id], $fulfilment_data);
-            echo json_encode(array('status' => true, 'msg' => '<p class="text-success text-center"><strong>Transponder order saved successfully</strong></p>'));
+            /*echo json_encode(array('status' => true, 'msg' => '<p class="text-success text-center"><strong>Transponder order saved successfully</strong></p>'));*/
+
+            if ($status == 0) {
+                    $data['details'] = (object)[
+                        'client' =>  $this->db->select('organization')->from('clients')->where('client_id', $client->client_id)->get()->row()->organization
+                        ];
+                    $body = $this->load->view('email/transponder_request', $data, TRUE);
+                    $from = 'crm@innovativetoll.com';
+                    $to = 'fulfillment@innovativetoll.com, clients@innovativetoll.com, cynthia.wachira@innovativetoll.com, cheyenne.hughes@innovativetoll.com';
+                    $cc = 'pat@innovativetoll.com, ITSupport@gravitassolutionsltd.com';
+                    $subject = 'New transponder request';
+                    if($this->send_mail($from, $to, $subject, $body, $cc)){
+                         echo json_encode(array('status' => true, 'msg' => '<p class="text-success text-center"><strong>Transponder order saved successfully and email notification sent</strong></p>'));
+
+                    } else{
+                         echo json_encode(array('status' => false, 'msg' => $this->email->print_debugger()));
+
+                    }
+                } else {
+                     echo json_encode(array('status' => true, 'msg' => '<p class="text-success text-center"><strong>Transponder order saved successfully</strong></p>'));
+                }
         }
     }
     public function posts()
@@ -1268,5 +1324,38 @@ class Member extends Auth_Controller
     public function dept_sub_departments($dept_id)
     {
         echo json_encode($this->member_model->get_sub_departments($dept_id));
+    }
+
+    public function send_mail($from, $to, $subject, $message, $cc) {
+
+        $config = array();
+        $config['protocol'] = 'smtp';
+        $config['smtp_host'] = 'in-v3.mailjet.com';
+        $config['smtp_port'] = '587';
+        $config['smtp_user'] = 'c601900072ddfeef22529e9d2e2a1e20';
+        $config['smtp_pass'] = 'd67cbd136e62bf22054133ff53c8f825';
+        $config['charset'] = 'utf-8';
+        $config['mailtype'] = 'html';
+        $config['newline'] = "\r\n";
+
+        $this->load->library('email', $config);
+        $this->email->initialize($config);
+
+        //Load email library
+        $this->email->from($from, 'System Message');
+        $this->email->to($to);
+        if (!empty($cc)) {
+           $this->email->cc($cc); 
+        }
+        $this->email->subject($subject);
+        $this->email->message($message);
+
+        //Send mail
+         if ($this->email->send()) {
+            return true;
+        } else {
+            return false;               
+        }
+        
     }
 }
