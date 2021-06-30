@@ -267,6 +267,12 @@ class Admin extends Auth_Controller
                 'constraint' => '200',
                 'null'  => TRUE
             ),
+
+             'reason' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '250',
+                'null'  => TRUE
+            ),
         );
         $this->dbforge->add_field($fields);
         $this->dbforge->add_key('invoice_id', TRUE);

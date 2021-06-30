@@ -527,10 +527,15 @@ class Member extends Auth_Controller
         $this->data['client_id'] = $client->client_id;
         $this->render('frontend/dispute');
     }
-    public function dispute_status($id, $client)
+    public function dispute_status()
     {
-        $dispute = array('dispute' => 1);
-        if (!$this->member_model->update_dispute_status($dispute, $id, $client)) {
+        $dispute_data = array(
+                'reason' => $this->input->post('reason'),
+                'dispute' => 1
+            );
+        $id = $this->input->post('id'); 
+        $client = $this->input->post('client');
+        if (!$this->member_model->update_dispute_status($dispute_data, $client, ['invoice_id' => $id])) {
             echo json_encode(['status' => false, 'msg' => 'Error in updating transaction']);
         } else {
             echo json_encode(['status' => true, 'msg' => 'Transaction filed as disputed']);
@@ -538,8 +543,11 @@ class Member extends Auth_Controller
     }
     public function resolve_dispute($id, $client)
     {
-        $dispute = array('dispute' => 1);
-        if (!$this->member_model->resolve_dispute_status($dispute, $id, $client)) {
+        $dispute_data = array(
+                'reason' => null,
+                'dispute' => 0
+            );
+        if (!$this->member_model->resolve_dispute_status($dispute_data, $client, ['invoice_id' => $id])) {
             echo json_encode(['status' => false, 'msg' => 'Error in updating transaction']);
         } else {
             echo json_encode(['status' => true, 'msg' => 'Transaction filed as disputed']);

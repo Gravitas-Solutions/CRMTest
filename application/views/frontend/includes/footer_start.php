@@ -39,6 +39,8 @@
     <!-- auto complete in select -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
+	<!-- Sweet Alert -->
+	<script src="<?php echo base_url();?>assets/js/plugin/sweetalert/sweetalert.min.js"></script>
 
 	<!-- Atlantis JS -->
 	<script src="<?php echo base_url() ?>assets/js/atlantis.min.js"></script>

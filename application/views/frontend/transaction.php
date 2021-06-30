@@ -544,24 +544,70 @@ function filter_range(){
 }
 
 function dispute_status(id, client){
-	var r=confirm("Are you sure you want dispute the transaction?")
-	 if (r==true)
-        $.ajax({
-            url : "<?php echo site_url('frontend/member/dispute_status')?>/"+id+"/"+client,
-            type: "POST",
-            dataType: "JSON",
-            success: function(data)
-            {
-                alert('Changed dispute status successfully');
-                location.reload();
-            },
-            error: function (jqXHR, textStatus, errorThrown)
-            {
-                alert('Error updating status');
-            }
-        });
-        else
-          return false;
+		swal({
+			title: 'Dispute - Transaction ID:' +id,
+			text: "Give Reason for dispute",
+			html: '<br><input class="form-control" placeholder="Reason For dispute" id="reason">',
+			content: {
+				element: "input",
+				attributes: {
+					placeholder: "Reason",
+					type: "text",
+					id: "reason",
+					className: "form-control"
+				},
+			},
+			buttons: {
+				cancel: {
+					visible: true,
+					className: 'btn btn-danger'
+				},        			
+				confirm: {
+					className : 'btn btn-success'
+				}
+			},
+		}).then((Dispute) => {
+			if (Dispute) {
+				 $.ajax({
+		            url : "<?php echo site_url('frontend/member/dispute_status')?>",
+		            type: "POST",
+		            data: {reason: $('#reason').val(), id: id, client: client},
+		            dataType: "JSON",
+		            success: function(data)
+		            {
+		                swal({
+							title: 'Disputed!',
+							text: data.msg,
+							type: 'success',
+							buttons : {
+								confirm: {
+									className : 'btn btn-success'
+								}
+							},
+							timer: 6000
+							});
+
+		                location.reload();
+		            },
+		            error: function (jqXHR, textStatus, errorThrown)
+		            {
+		                 swal({
+							title: 'Error!',
+							text: data.msg,
+							type: 'danger',
+							buttons : {
+								confirm: {
+									className : 'btn btn-danger'
+								}
+							},
+							timer: 6000,
+							});
+		            }
+		        });
+			} else {
+				swal.close();
+			}
+		});
 }
 </script>
 <?php $this->load->view('frontend/includes/footer_end'); ?>

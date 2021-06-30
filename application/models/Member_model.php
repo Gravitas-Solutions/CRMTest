@@ -306,14 +306,14 @@ class Member_model extends CI_Model
 		$query = $this->db->get();
 		return $query->result();
 	}
-	public function update_dispute_status($dispute, $id, $org)
+	public function update_dispute_status($data, $org, $where)
 	{
-		$this->db->update($org.'_invoice', ['dispute' => 1], ['invoice_id' => $id]);
+		$this->db->update($org.'_invoice', $data, $where);
 		return $this->db->affected_rows();
 	}
-	public function resolve_dispute_status($dispute, $id, $org)
+	public function resolve_dispute_status($data, $org, $where)
 	{
-		$this->db->update($org.'_invoice', ['dispute' => 0], ['invoice_id' => $id]);
+		$this->db->update($org.'_invoice', $data, $where);
 		return $this->db->affected_rows();
 	}
 	public function date_range_transactions($org, $dept, $sub_dept, $from, $to, $group_id, $date_type)
