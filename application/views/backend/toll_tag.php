@@ -28,7 +28,7 @@
             						<tr>
             							<td><?php echo ++$i; ?></td>
             							<td><?php echo ucfirst($tag->tag);?></td>
-            							<td><?php echo ucwords($tag->organization);?></td>
+            							<td><?php echo strtoupper(ucwords(str_replace('_', ' ', $tag->organization)));?></td>
                                         <td class="text-center"><?php echo ($tag->status) ? 'Assigned' : 'Active'; ?></td>
             							<td>
             								<button class="btn btn-warning btn-xs" onclick="edit_toll_tag(<?php echo $tag->tag_id;?>)" title = "Edit toll tag details"><i class="fa fa-edit"></i></button> |

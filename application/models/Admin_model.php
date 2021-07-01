@@ -1144,5 +1144,43 @@ class Admin_model extends CI_Model
 		$this->db->update('tag', $data, $where);
 		return $this->db->affected_rows();
 	}
+
+	
+	public function get_cards()
+	{
+		$this->db->from('card_info');
+		$this->db->join('clients', 'clients.client_id = card_info.client_id');
+		$this->db->join('card_type', 'card_type.card_type_id = card_info.card_type');
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	public function card_by_id($id)
+	{
+		$this->db->from('card_info');
+		$this->db->where('card_info_id', $id);
+		$query = $this->db->get();
+		return $query->row();
+	}
+
+	public function delete_card_info($id)
+	{
+		$this->db->where('card_info_id', $id);
+		$this->db->delete('card_info');
+	}
+	public function update_card_info($where, $data)
+	{
+		$this->db->update('card_info', $data, $where);
+		return $this->db->affected_rows();
+	}
+
+	public function save_card_info($data)
+	{
+		$this->db->insert('card_info', $data);
+		return $this->db->insert_id();
+	}
+	public function get_card_type_list(){
+		return $this->db->select('*')->from('card_type')->get()->result();
+	}
 	
 }

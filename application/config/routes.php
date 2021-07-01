@@ -40,6 +40,7 @@ $route['states'] = 'backend/admin/states';
 $route['agencies'] = 'backend/admin/agencies';
 $route['tag'] = 'backend/admin/tags';
 $route['toll_tag'] = 'backend/admin/toll_tag';
+$route['card_info'] = 'backend/admin/card_info';
 $route['signups'] = 'backend/admin/signups';
 
 // client-end

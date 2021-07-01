@@ -3038,7 +3038,7 @@ class Admin extends Auth_Controller
     //manage toll tags
     public function toll_tag()
     {
-        $this->data['title'] = "Admin &raquo; Agencies";
+        $this->data['title'] = "Admin &raquo; Tolltags";
         $this->data['tags'] = $this->admin_model->get_toll_tags();
         $this->data['clients'] = $this->admin_model->get_clients_list();
         $this->render('backend/toll_tag');
@@ -3086,4 +3086,79 @@ class Admin extends Auth_Controller
         $this->admin_model->delete_toll_tag($id);
         echo json_encode(array("status" => TRUE));
     }
+
+    //manage credit card Information
+    public function card_info()
+    {
+        $this->data['title'] = "Admin &raquo; Payment Card Info";
+        $this->data['cards'] = $this->admin_model->get_cards();
+        $this->data['clients'] = $this->admin_model->get_clients_list();
+        $this->data['card_types'] = $this->admin_model->get_card_type_list();
+        $this->render('backend/card_info');
+    }
+
+    public function edit_card_info($id)
+    {
+        $card_data = $this->admin_model->card_by_id($id);
+        if ($card_data) {
+            echo json_encode(array('status' => TRUE, 'card_data' => $card_data));
+        } else {
+            echo json_encode(array('status' => FALSE, 'msg' => 'Failed getting data'));
+        }
+    }
+
+    public function delete_card_info($id)
+    {
+        $this->admin_model->delete_card_info($id);
+        echo json_encode(array("status" => TRUE));
+    }
+
+    public function add_card_info()
+    {
+        $this->form_validation->set_rules('Card Holder Name', 'holder_name', 'trim|required');
+        $this->form_validation->set_rules('Card Type', 'card_type', 'trim|required');
+        $this->form_validation->set_rules('Card Number', 'card_number', 'trim|required');
+        $this->form_validation->set_rules('cvc', 'CVC', 'trim|required');
+        $this->form_validation->set_rules('postal_code', 'Postal  Code', 'trim|required');
+        $this->form_validation->set_rules('expiration_date', 'Expiration Date', 'trim|required');
+        $this->form_validation->set_rules('client_id', 'Client', 'trim|required');
+        if ($this->form_validation->run() === FALSE) {
+            echo json_encode(array('status' => FALSE, 'msg' => validation_errors('<p>', '</p>')));
+        } else {
+           $card_info = array('holder_name' => $this->input->post('holder_name'),
+                        'card_type' => $this->input->post('card_type'),
+                        'card_number' => $this->input->post('card_number'),
+                        'cvc' => $this->input->post('cvc'),
+                        'postal_code' => $this->input->post('postal_code'),
+                        'expiration_date' => $this->input->post('expiration_date'),
+                        'client_id' => $this->input->post('client_id'));
+            $this->admin_model->save_card_info($card_info);
+            echo json_encode(array('status' => TRUE, 'msg' => 'Card Info saved'));
+        }
+    }
+
+     public function update_card_info()
+    {
+        $this->form_validation->set_rules('Card Holder Name', 'holder_name', 'trim|required');
+        $this->form_validation->set_rules('Card Type', 'card_type', 'trim|required');
+        $this->form_validation->set_rules('Card Number', 'card_number', 'trim|required');
+        $this->form_validation->set_rules('cvc', 'CVC', 'trim|required');
+        $this->form_validation->set_rules('postal_code', 'Postal  Code', 'trim|required');
+        $this->form_validation->set_rules('expiration_date', 'Expiration Date', 'trim|required');
+        $this->form_validation->set_rules('client_id', 'Client', 'trim|required');
+        if ($this->form_validation->run() === FALSE) {
+            echo json_encode(array('status' => FALSE, 'msg' => validation_errors('<p>', '</p>')));
+        } else {
+            $card_info = array('holder_name' => $this->input->post('holder_name'),
+                        'card_type' => $this->input->post('card_type'),
+                        'card_number' => $this->input->post('card_number'),
+                        'cvc' => $this->input->post('cvc'),
+                        'postal_code' => $this->input->post('postal_code'),
+                        'expiration_date' => $this->input->post('expiration_date'),
+                        'client_id' => $this->input->post('client_id'));
+            $this->admin_model->update_card_info(array('tag_id' => $this->input->post('id')), $card_info);
+            echo json_encode(array('status' => TRUE, 'msg' => 'Card Info updated'));
+        }
+    }
+
 }

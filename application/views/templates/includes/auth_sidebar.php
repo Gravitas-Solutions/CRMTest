@@ -129,6 +129,11 @@
 								</a>
 							</li>
 							<li>
+								<a href="<?php echo base_url('card_info') ?>">
+									<span class="sub-item">Card Details</span>
+								</a>
+							</li>
+							<li>
 								<a href="<?php echo base_url('signups') ?>">
 									<span class="sub-item">Signups</span>
 								</a>

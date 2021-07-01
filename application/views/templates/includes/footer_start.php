@@ -31,6 +31,8 @@
   <!-- jQuery Scrollbar -->
   <script src="<?php echo base_url() ?>assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
 
+  <!-- jQuery popover -->
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 
   
 

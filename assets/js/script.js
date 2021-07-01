@@ -32,7 +32,7 @@
           });
       });
   $(function () {
-    $('#transaction_start, #transaction_end, #date_for').datepicker({
+    $('#transaction_start, #transaction_end, #expiration_date, #date_for').datepicker({
       format: 'mm/dd/yyyy',
       icons: {
         previous: "fa fa-arrow-left",
