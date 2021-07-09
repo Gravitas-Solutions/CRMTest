@@ -3115,9 +3115,9 @@ class Admin extends Auth_Controller
 
     public function add_card_info()
     {
-        $this->form_validation->set_rules('Card Holder Name', 'holder_name', 'trim|required');
-        $this->form_validation->set_rules('Card Type', 'card_type', 'trim|required');
-        $this->form_validation->set_rules('Card Number', 'card_number', 'trim|required');
+        $this->form_validation->set_rules('holder_name', 'Card Holder Name', 'trim|required');
+        $this->form_validation->set_rules('card_type', 'Card Type', 'trim|required');
+        $this->form_validation->set_rules('card_number', 'Card Number', 'trim|required');
         $this->form_validation->set_rules('cvc', 'CVC', 'trim|required');
         $this->form_validation->set_rules('postal_code', 'Postal  Code', 'trim|required');
         $this->form_validation->set_rules('expiration_date', 'Expiration Date', 'trim|required');
@@ -3130,7 +3130,7 @@ class Admin extends Auth_Controller
                         'card_number' => $this->input->post('card_number'),
                         'cvc' => $this->input->post('cvc'),
                         'postal_code' => $this->input->post('postal_code'),
-                        'expiration_date' => $this->input->post('expiration_date'),
+                        'expiration_date' => date('Y-m-d', strtotime($this->input->post('expiration_date'))),
                         'client_id' => $this->input->post('client_id'));
             $this->admin_model->save_card_info($card_info);
             echo json_encode(array('status' => TRUE, 'msg' => 'Card Info saved'));
@@ -3139,9 +3139,9 @@ class Admin extends Auth_Controller
 
      public function update_card_info()
     {
-        $this->form_validation->set_rules('Card Holder Name', 'holder_name', 'trim|required');
-        $this->form_validation->set_rules('Card Type', 'card_type', 'trim|required');
-        $this->form_validation->set_rules('Card Number', 'card_number', 'trim|required');
+        $this->form_validation->set_rules('holder_name', 'Card Holder Name', 'trim|required');
+        $this->form_validation->set_rules('card_type', 'Card Type', 'trim|required');
+        $this->form_validation->set_rules('card_number', 'Card Number', 'trim|required');
         $this->form_validation->set_rules('cvc', 'CVC', 'trim|required');
         $this->form_validation->set_rules('postal_code', 'Postal  Code', 'trim|required');
         $this->form_validation->set_rules('expiration_date', 'Expiration Date', 'trim|required');
@@ -3154,9 +3154,9 @@ class Admin extends Auth_Controller
                         'card_number' => $this->input->post('card_number'),
                         'cvc' => $this->input->post('cvc'),
                         'postal_code' => $this->input->post('postal_code'),
-                        'expiration_date' => $this->input->post('expiration_date'),
+                        'expiration_date' => date('Y-m-d', strtotime($this->input->post('expiration_date'))),
                         'client_id' => $this->input->post('client_id'));
-            $this->admin_model->update_card_info(array('tag_id' => $this->input->post('id')), $card_info);
+            $this->admin_model->update_card_info(array('card_info_id' => $this->input->post('id')), $card_info);
             echo json_encode(array('status' => TRUE, 'msg' => 'Card Info updated'));
         }
     }

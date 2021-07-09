@@ -1291,7 +1291,7 @@ class Member extends Auth_Controller
                     $nestedData['dept'] = ($post->dept_name !== $overview_dept) ? $post->dept_name : "Overview";
                     $nestedData['unit'] = ($post->unit !== null) ? $post->unit : "<center>-</center>";
                     $nestedData['agency_name'] = $post->agency_name;
-                    $nestedData['exit_date_time'] = date('m/d/Y', strtotime($post->exit_date_time));
+                    $nestedData['exit_date_time'] = date('m/d/Y H:i:s', strtotime($post->exit_date_time));
                     ($org !== 'amazon') ? $nestedData['exit_lane'] = $post->exit_lane : $nestedData['exit_lane'] = "<center>-</center>";
                     ($org !== 'amazon') ? $nestedData['exit_location'] = $post->exit_location : $nestedData['exit_location'] =  $post->exit_name;
                     $nestedData['toll'] = '$ ' . number_format($post->toll, 2);
@@ -1305,7 +1305,7 @@ class Member extends Auth_Controller
                     $nestedData['state_code'] = $post->state_code;
                     $nestedData['dept'] = ($post->dept_name !== $overview_dept) ? $post->dept_name : "Overview";
                     $nestedData['agency_name'] = $post->agency_name;
-                    $nestedData['exit_date_time'] = date('m/d/Y', strtotime($post->exit_date_time));
+                    $nestedData['exit_date_time'] = date('m/d/Y H:i:s', strtotime($post->exit_date_time));
                     ($org !== 'amazon') ? $nestedData['exit_lane'] = $post->exit_lane : $nestedData['exit_lane'] = "<center>-</center>";
                     ($org !== 'amazon') ? $nestedData['exit_location'] = $post->exit_location : $nestedData['exit_location'] =  $post->exit_name;
                     $nestedData['toll'] = '$ ' . number_format($post->toll, 2);

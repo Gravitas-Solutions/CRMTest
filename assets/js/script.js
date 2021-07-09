@@ -18,7 +18,7 @@
   });
   /*Datepicker*/
   $(function () {
-          $('#start_date, #end_date, #road_day, #invoice_date, #pay_date, #citation_date, #paid_date').datepicker({
+          $('#start_date, #end_date, #road_day, #invoice_date, #pay_date, #citation_date, #paid_date, #expiration_date').datepicker({
               format: 'dd-mm-yyyy',
               icons: {
                   previous: "fa fa-arrow-left",
@@ -32,7 +32,7 @@
           });
       });
   $(function () {
-    $('#transaction_start, #transaction_end, #expiration_date, #date_for').datepicker({
+    $('#transaction_start, #transaction_end, #date_for').datepicker({
       format: 'mm/dd/yyyy',
       icons: {
         previous: "fa fa-arrow-left",

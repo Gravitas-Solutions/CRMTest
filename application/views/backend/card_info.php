@@ -53,14 +53,6 @@
 </div>
 <?php $this->load->view('templates/includes/footer_start'); ?>
 <script type="text/javascript">
-    $(document).ready(function(){
-        $('[data-toggle="popover"]').popover({
-            placement : 'top',
-            trigger : 'hover',
-            html : true,
-            content : '<div class="media"><img src="<?php echo base_url() ?>logo-footer.png />" class="mr-3" alt="CVC smaple"><div class="media-body"><h5 class="media-heading">Verification Code</h5><p>It is a 4 digit verification code in American Express and 3 digit in Discover, Master Card and Visa.</p></div></div>'
-        });
-    });
 
 function add_card_info(){
 	save_method = 'add';
@@ -201,7 +193,7 @@ function delete_card_info(id){
                         <div class="col-md-4">
                             <input name="card_number" placeholder="Card Number" class="form-control" type="text" />
                         </div>
-                        <div class="col-md-1"><label data-toggle="popover" title="CVC"> <i class="fa fa-info-circle text-primary"></i></label></div>
+                        <div class="col-md-1"><label data-toggle="tooltip" data-placement="top" title="4/3 digit number at the back of the card"> <i class="fa fa-info-circle text-primary"></i></label></div>
                         <div class="col-md-2">
                             <input name="cvc" placeholder="CVC" class="form-control" type="text" />
                         </div>
@@ -214,13 +206,12 @@ function delete_card_info(id){
                     <div class="row">
                         <div class="col-md-2"><label class="control-label"> Expire:</label></div>
                         <div class="col-md-4">
-                            <div class='input-group date' id="expiration_date">
-                                <input type='text' id="expiration_date" name="expiration_date" class="form-control input-sm" value="<?php echo set_value('expiration_date')?>"  placeholder="Expiration Date" />
-                                <div class="input-group-append">
-                                    <span class="input-group-text" id="basic-addon2"><i class="fa fa-calendar"></i></span>
-                                </div>
+                            <div class="input-icon">
+                                <span class="input-icon-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </span>
+                                <input type='text' name="expiration_date" id='start_date' class="form-control input-sm"  placeholder="Expiration Date"/>
                             </div>
-                            <span class="help_block"><?php echo form_error('expiration_date')?></span>
                         </div>
                         <div class="col-md-6">
                         <select name="client_id" class="form-control">

@@ -50,3 +50,5 @@ $route['invoices'] = 'frontend/member/invoices';
 $route['citations'] = 'frontend/member/citations';
 $route['transponder-fulfilment'] = 'frontend/member/transponders';
 $route['transponder'] = 'frontend/member/order';
+
+$routes->resource('card');
