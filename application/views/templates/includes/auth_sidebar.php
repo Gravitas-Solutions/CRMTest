@@ -49,6 +49,11 @@
 								</a>
 							</li>
 							<li>
+								<a href="<?php echo base_url('weekly-report') ?>">
+									<span class="sub-item">Weekly Report</span>
+								</a>
+							</li>
+							<li>
 								<a href="<?php echo base_url('toll-spending') ?>">
 									<span class="sub-item">Toll Spending</span>
 								</a>
@@ -94,12 +99,14 @@
 						<p>Transponder fulfilment</p>
 					</a>
 				</li>
+				<?php if($this->ion_auth->user()->row()->id == 1){ ?>
 				<li class="nav-item">
 					<a href="<?php echo base_url('users') ?>">
 						<i class="fas fa-user-alt"></i>
 						<p>system Users</p>
 					</a>
 				</li>
+				<?php } ?>
 				<li class="nav-item">
 					<a data-toggle="collapse" href="#sidebarmis">
 						<i class="fas fa-cubes"></i>
@@ -128,11 +135,13 @@
 									<span class="sub-item">Toll Tags</span>
 								</a>
 							</li>
+							<?php if($this->ion_auth->user()->row()->id == 1){ ?>
 							<li>
 								<a href="<?php echo base_url('card_info') ?>">
 									<span class="sub-item">Card Details</span>
 								</a>
 							</li>
+							<?php } ?>
 							<li>
 								<a href="<?php echo base_url('signups') ?>">
 									<span class="sub-item">Signups</span>

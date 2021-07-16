@@ -28,6 +28,7 @@ $route['departments'] = 'backend/admin/client_departments';
 
 $route['transactions-manage'] = 'backend/admin/db_dump';
 $route['range-transactions'] = 'backend/admin/range_db_dump';
+$route['weekly-report'] = 'backend/admin/weekly_report';
 $route['toll-spending'] = 'backend/admin/client_toll_spending';
 $route['account'] = 'backend/admin/accounts';
 $route['citations-management'] = 'backend/admin/citations';
@@ -51,4 +52,5 @@ $route['citations'] = 'frontend/member/citations';
 $route['transponder-fulfilment'] = 'frontend/member/transponders';
 $route['transponder'] = 'frontend/member/order';
 
-$routes->resource('card');
+//$routes->resource('card');
+$route['card'] = 'api/card';

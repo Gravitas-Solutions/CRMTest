@@ -3111,7 +3111,7 @@ class Admin extends Auth_Controller
     {
         $this->admin_model->delete_card_info($id);
         echo json_encode(array("status" => TRUE));
-    }
+    } 
 
     public function add_card_info()
     {
@@ -3158,6 +3158,152 @@ class Admin extends Auth_Controller
                         'client_id' => $this->input->post('client_id'));
             $this->admin_model->update_card_info(array('card_info_id' => $this->input->post('id')), $card_info);
             echo json_encode(array('status' => TRUE, 'msg' => 'Card Info updated'));
+        }
+    }
+
+    public function weekly_report()
+    {
+        $this->data['title'] = "Admin &raquo; Weekly Reports";
+        $this->data['clients'] = $this->admin_model->get_clients_list();
+        $this->data['types'] = $this->admin_model->get_report_type_list();
+        $this->data['weeks'] = $this->admin_model->get_week_list();
+        $this->data['reports'] = $this->admin_model->get_reports();
+        $this->render('backend/weekly_report');
+    }
+
+     function add_weekly_report(){
+        if ($_FILES["report_file"]["name"] == '') {
+            echo json_encode(['status' => false, 'msg' => 'Select a report to upload']);
+        } else {
+            $ext = (new SplFileInfo($_FILES["report_file"]["name"]))->getExtension();
+            if($ext == 'xls' || $ext == 'xlsx' || $ext == 'csv'){
+                if ($this->_report_validate() === FALSE) {
+                   echo json_encode(array('status' => FALSE, 'msg' => validation_errors('<span>', ' | </span>')));
+                } else {
+
+                    $config = array(
+                        'upload_path'   => './uploads/weekly_report',
+                        'allowed_types' => 'xls|xlsx|csv',
+                        'remove_spaces' => 'TRUE',
+                        'file_name'      => time() . '_' . $_FILES['report_file']['name']
+                    );
+                    $this->load->library('upload', $config);
+                    if (!$this->upload->do_upload('report_file')) {
+
+                        echo json_encode(['status' => true, 'msg' => '<p class="text-danger"><strong>Excel error:</strong> ' . $this->upload->display_errors('', '') . '</p>']);
+                    } else {
+                        $data_excel = $this->upload->data();
+                        $report_file = $data_excel['file_name'];
+
+                     $weekly_report = array(
+                        'records' => $this->input->post('records'),
+                        'week_id' => $this->input->post('week'),
+                        'amount' => $this->input->post('amount'),
+                        'report_type_id' => $this->input->post('report_type'),
+                        'end_week_date' => date('Y-m-d', strtotime($this->input->post('end_week_date'))),
+                        'uploader' => $this->ion_auth->user()->row()->id,
+                        'file_name' => $report_file,
+                        'client_id' => $this->input->post('client_id'));
+                        $this->admin_model->save_weekly_report($weekly_report);
+                        echo json_encode(array('status' => TRUE, 'msg' => 'Weekly report uploaded sucessfully'));
+                    }
+
+                }
+            }else{
+                echo json_encode(['status' => false, 'msg' => 'Only excel files with extension .xls or .xlsx are allowed']);
+            }
+        }
+    }    
+    function update_weekly_report(){
+        if ($this->_report_validate() === FALSE) {
+            echo json_encode(array('status' => FALSE, 'msg' => validation_errors('<p>', '</p>')));
+            exit;
+        } else {
+                $weekly_report = array(
+                    'records' => $this->input->post('records'),
+                    'week_id' => $this->input->post('week'),
+                    'amount' => $this->input->post('amount'),
+                    'report_type_id' => $this->input->post('report_type'),
+                    'end_week_date' => date('Y-m-d', strtotime($this->input->post('end_week_date'))),
+                    'uploader' => $this->ion_auth->user()->row()->id,
+                    'client_id' => $this->input->post('client_id'));
+
+                if ($_FILES["report_file"]["name"] !== '') {
+
+                    $ext = (new SplFileInfo($_FILES["report_file"]["name"]))->getExtension();
+                    if($ext == 'xls' || $ext == 'xlsx' || $ext == 'csv'){
+                         $config = array(
+                        'upload_path'   => './uploads/weekly_report',
+                        'allowed_types' => 'xls|xlsx|csv',
+                        'remove_spaces' => 'TRUE',
+                        'file_name'      => time() . '_' . $_FILES['report_file']['name']
+                        );
+                        $this->load->library('upload', $config);
+                        if (!$this->upload->do_upload('report_file')) {
+
+                            echo json_encode(['status' => true, 'msg' => '<p class="text-danger"><strong>Excel error:</strong> ' . $this->upload->display_errors('', '') . '</p>']);
+                        } else {
+                            $data_excel = $this->upload->data();
+                            $report_file = $data_excel['file_name'];
+
+                            $previous_file = $this->db->select('file_name')->get_where('weekly_report', ['weekly_report_id' => $this->input->post('id')])->row();
+                            $report_file_name = array('file_name' => $report_file);
+                            $weekly_report = array_merge($weekly_report, $report_file_name);
+                            unlink('./uploads/weekly_report/' . $previous_file->file_name);
+
+                            if (!$this->admin_model->update_weekly_report(['weekly_report_id' => $this->input->post('id')], $weekly_report)) {
+                                echo json_encode(['status' => false, 'msg' => 'Error Updating weekly report']);
+                            } else {
+                                 echo json_encode(array('status' => TRUE, 'msg' => 'Weekly report updated sucessfully'));
+                            }
+                        }
+                   
+                    }else{
+                        echo json_encode(['status' => false, 'msg' => 'Only excel files with extension .xls or .xlsx are allowed']);
+                    }
+
+                }else{
+                    if (!$this->admin_model->update_weekly_report(['weekly_report_id' => $this->input->post('id')], $weekly_report)) {
+                            echo json_encode(['status' => false, 'msg' => 'Error Updating weekly report']);
+                        } else {
+                             echo json_encode(array('status' => TRUE, 'msg' => 'Weekly report updated sucessfully'));
+                        }
+                }
+
+
+        }
+    }
+
+    private function _report_validate()
+    {
+      
+        $this->form_validation->set_rules('end_week_date', 'Post/End Week Date', 'trim|required', array('required' => 'Specify Post/End Week Date'));
+        $this->form_validation->set_rules('amount', 'Amount', 'trim|required', array('required' => 'Provide report total amount'));
+        $this->form_validation->set_rules('client_id', 'Client', 'trim|required', array('required' => 'Select Client'));
+        $this->form_validation->set_rules('week', 'Week', 'trim|required', array('required' => 'Select report Week'));
+        $this->form_validation->set_rules('records', 'Number of records', 'trim|required', array('required' => 'Provie number of records'));
+        $this->form_validation->set_rules('report_type', 'Report type', 'trim|required', array('required' => 'Specify report type'));
+
+        if ($this->form_validation->run() === FALSE) {
+            return FALSE;
+        } else {
+            return TRUE;
+        }
+    }
+
+    public function delete_weekly_report($id)
+    {
+        $this->admin_model->delete_weekly_report($id);
+        echo json_encode(array("status" => TRUE));
+    }
+
+    public function edit_weekly_report($id)
+    {
+        $report_data = $this->admin_model->weekly_report_by_id($id);
+        if ($report_data) {
+            echo json_encode(array('status' => TRUE, 'report_data' => $report_data));
+        } else {
+            echo json_encode(array('status' => FALSE, 'msg' => 'Failed getting data'));
         }
     }
 

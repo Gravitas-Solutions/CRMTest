@@ -1182,5 +1182,53 @@ class Admin_model extends CI_Model
 	public function get_card_type_list(){
 		return $this->db->select('*')->from('card_type')->get()->result();
 	}
+
+	//weekly report
+
+	public function get_week_list()
+	{
+		$this->db->from('weeks');
+		$query = $this->db->get();
+		return $query->result();
+	}
+	public function get_report_type_list()
+	{
+		$this->db->from('report_types');
+		$query = $this->db->get();
+		return $query->result();
+	}
+	public function get_reports()
+	{
+		$this->db->from('weekly_report');
+		$this->db->join('weeks', 'weeks.week_id = weekly_report.week_id');
+		$this->db->join('report_types', 'report_types.report_type_id = weekly_report.report_type_id');
+		$this->db->join('clients', 'clients.client_id = weekly_report.client_id');
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	public function save_weekly_report($data)
+	{
+		$this->db->insert('weekly_report', $data);
+		return $this->db->insert_id();
+	}
+
+	public function update_weekly_report($where, $data)
+	{
+		$this->db->update('weekly_report', $data, $where);
+		return $this->db->affected_rows();
+	}
+	public function delete_weekly_report($id)
+	{
+		$this->db->where('weekly_report_id', $id);
+		$this->db->delete('weekly_report');
+	}
+	public function weekly_report_by_id($id)
+	{
+		$this->db->from('weekly_report');
+		$this->db->where('weekly_report_id', $id);
+		$query = $this->db->get();
+		return $query->row();
+	}
 	
 }

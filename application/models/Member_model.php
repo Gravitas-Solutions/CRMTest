@@ -1036,4 +1036,14 @@ class Member_model extends CI_Model
 		return $this->db->insert_id();
 	}
 
+		public function get_reports()
+	{
+		$this->db->from('weekly_report');
+		$this->db->join('weeks', 'weeks.week_id = weekly_report.week_id');
+		$this->db->join('report_types', 'report_types.report_type_id = weekly_report.report_type_id');
+		$this->db->join('clients', 'clients.client_id = weekly_report.client_id');
+		$query = $this->db->get();
+		return $query->result();
+	}
+
 }

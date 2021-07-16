@@ -754,7 +754,13 @@ class Member extends Auth_Controller
 
 
         $this->data['user_modules'] = explode(',', $client->modules);
-        $this->render('frontend/invoice');
+        
+         if ($org == 'amazon') {
+                $this->data['reports'] = $this->member_model->get_reports();
+                $this->render('frontend/weekly_report');
+            } else {
+               $this->render('frontend/invoice');
+            }
     }
 
     function log_member_searches()

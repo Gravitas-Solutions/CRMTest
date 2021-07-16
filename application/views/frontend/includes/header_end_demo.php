@@ -155,9 +155,9 @@
 									      ?>
 									      <li><a class="nav-link" href="<?php echo base_url("$module");?>" onclick="document.getElementById('member_dept'); document.getElementById('dept_form').submit()"><?php echo $icon.' '.ucfirst($module) ?></a></li>
 									        <?php } ?>
-									      <?php if($demo_acc) : ?>
+									      <!-- <?php if($demo_acc) : ?>
 									        <li><a onclick="calculator()" href='javascript:void(0)'><i class="fa fa-calculator"></i> ROI</a></li>
-									      <?php endif; ?>
+									      <?php endif; ?> -->
 																				<!-- <li class="nav-item">
 											<a class="nav-link" href="<?php echo base_url('vehicles') ?>"><i class="fas fa-file-invoice-dollar"></i> Vehicles</a>
 										</li>
