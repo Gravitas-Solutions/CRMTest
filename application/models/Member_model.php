@@ -1036,12 +1036,39 @@ class Member_model extends CI_Model
 		return $this->db->insert_id();
 	}
 
-		public function get_reports()
+/*		public function get_reports($client_id)
 	{
 		$this->db->from('weekly_report');
 		$this->db->join('weeks', 'weeks.week_id = weekly_report.week_id');
 		$this->db->join('report_types', 'report_types.report_type_id = weekly_report.report_type_id');
 		$this->db->join('clients', 'clients.client_id = weekly_report.client_id');
+		$this->db->where('weekly_report.client_id', $client_id);
+		$query = $this->db->get();
+		return $query->result();
+	}*/
+
+	public function amazon_report_sum($client_id, $month, $type)
+    {
+        $this->db->select('SUM(amount) AS amount');
+        $this->db->join('report_types', 'report_types.report_type_id = weekly_report.report_type_id');
+        $this->db->where('client_id', $client_id);
+        $this->db->where('report_type', $type);
+        $this->db->where('end_week_date LIKE', $month.'%');
+		$query = $this->db->get('weekly_report');
+		return $query->row()->amount;
+
+    }
+
+    public function get_reports($client_id, $from, $to)
+	{
+		$this->db->from('weekly_report');
+		$this->db->join('weeks', 'weeks.week_id = weekly_report.week_id');
+		$this->db->join('report_types', 'report_types.report_type_id = weekly_report.report_type_id');
+		$this->db->join('clients', 'clients.client_id = weekly_report.client_id');
+		$this->db->where('weekly_report.client_id', $client_id);
+		if ($from != 0 && $to != 0) {
+		$this->db->where('DATE(end_week_date) BETWEEN "'.$from.'%'.'" AND "'.$to.'%'.'"');
+		}
 		$query = $this->db->get();
 		return $query->result();
 	}

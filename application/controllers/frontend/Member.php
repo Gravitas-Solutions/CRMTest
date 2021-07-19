@@ -118,11 +118,17 @@ class Member extends Auth_Controller
         }
 
         $this->data['balance'] = ($this->member_model->account_balance($acc_dept, $group_id)) ?? 0.00;
-
-
+        
         $this->data['month'] = $month = ($this->input->post('filter_month')) ? date('Y-m', strtotime($this->input->post('filter_month'))) : date('Y-m');
         $year = ($this->input->post('filter_month')) ? date('Y', strtotime($this->input->post('filter_month'))) : date('Y');
         /*$year = date('Y');*/
+
+        if ($org == 'amazon') {
+        $this->data['power_unit'] = $power_unit = ($this->member_model->amazon_report_sum($client->client_id, $month, 'POWER UNIT')) ?? 0.00;
+        $this->data['trailer'] = $trailer = ($this->member_model->amazon_report_sum($client->client_id, $month, 'TRAILER')) ?? 0.00;
+        $this->data['afp'] = $afp = ($this->member_model->amazon_report_sum($client->client_id, $month, 'AFP')) ?? 0.00;
+        $this->data['amazon_total'] = $power_unit + $afp + $trailer;
+        }
 
         $this->data['toll_transactions'] = $toll_transactions = $this->member_model->toll_transactions($org, $month, $dept, $sub_dept, $group_id);
         $this->data['saving'] = $toll_transactions * 0.085;
@@ -756,7 +762,17 @@ class Member extends Auth_Controller
         $this->data['user_modules'] = explode(',', $client->modules);
         
          if ($org == 'amazon') {
-                $this->data['reports'] = $this->member_model->get_reports();
+
+                $from = $this->input->post('start_date') ? date('Y-m-d', strtotime($this->input->post('start_date'))) : 0;
+                $to = $this->input->post('end_date') ? date('Y-m-d', strtotime($this->input->post('end_date'))) : 0;
+
+               if ($this->input->post('start_date') && $this->input->post('end_date')) {
+                $this->data['start_date'] = date('m-d-Y', strtotime($this->input->post('start_date')));
+                $this->data['end_date'] = date('m-d-Y', strtotime($this->input->post('end_date')));
+               }
+               
+                $this->data['reports'] = $this->member_model->get_reports($client->client_id, $from, $to);
+
                 $this->render('frontend/weekly_report');
             } else {
                $this->render('frontend/invoice');

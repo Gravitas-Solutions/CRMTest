@@ -47,10 +47,22 @@
 											<h5>MTD Summary <?php echo nice_date($month, 'F Y') ?></h5>
 										</div>
 										<div class="card-body">
-											<h4 class="font-weight-bold">Toll transactions</h4>
+											<h5 class="font-weight-bold">Toll transactions</h5>
 											<dl class="row">
-											  <dt class="col-sm-8">Account Balance <small class="text-muted">[<?php echo str_replace('_', ' ', $organization);?> <?php echo (isset($group_name)) ? $group_name : '';?>]</small></dt>
+											<?php if($client == 'amazon'){ ?>
+											  <dt class="col-sm-8">MTD Toll Spend </dt>
+											  <dd class="col-sm-4 text-right"><?php echo '$'.number_format($amazon_total, 2);?></dd>
+											  <dt class="col-sm-8">Power Unit </dt>
+											  <dd class="col-sm-4 text-right"><?php echo '$'.number_format($power_unit, 2);?></dd>
+											  <dt class="col-sm-8">Trailers </dt>
+											  <dd class="col-sm-4 text-right"><?php echo '$'.number_format($trailer, 2);?></dd>
+											  <dt class="col-sm-8">AFP </dt>
+											  <dd class="col-sm-4 text-right"><?php echo '$'.number_format($afp, 2);?></dd>
+											  <?php } else{?>
+											  	<dt class="col-sm-8">Account Balance <small class="text-muted">[<?php echo str_replace('_', ' ', $organization);?> <?php echo (isset($group_name)) ? $group_name : '';?>]</small></dt>
 											  <dd class="col-sm-4 text-right"><?php echo '$-'.number_format($toll_transactions, 2);?></dd>
+
+											   <?php } ?>
 
 											  <dt class="col-sm-8">Vehicle Count</dt>
 											  <dd class="col-sm-4 text-right"><?php echo number_format($active_vehicles+$inactive_vehicles, 0);?></dd>
