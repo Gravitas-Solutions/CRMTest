@@ -12,7 +12,7 @@ class Card extends REST_Controller {
     }
 
        
-    function card_get()
+    function index_get()
     {
         if(!$this->get('id'))
         {

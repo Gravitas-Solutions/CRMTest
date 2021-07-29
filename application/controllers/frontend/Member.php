@@ -481,7 +481,12 @@ class Member extends Auth_Controller
             if ($org == 'caliber_auto_glass' || $org == 'protech_as') {
                 $this->render('frontend/transaction_draft');
             } else {
-                $this->render('frontend/transaction_copy');
+                if ($org == 'amazon') {
+                     $this->render('frontend/transaction1');
+                } else {
+                    $this->render('frontend/transaction_copy'); 
+                }
+               
             }
         }
     }
@@ -507,8 +512,6 @@ class Member extends Auth_Controller
         $this->data['action'] = 'transactions';
         $this->data['transactions'] = $this->member_model->disputes($org, $dept, $sub_dept, $group_id);
         $this->data['logo'] = $this->member_model->member_logo($client->client_id, $dept, $sub_dept);
-        /* $this->data['departments'] = ($client->default_user == 1) ? $this->db->select('dept_id, dept_name')->from('departments')->where('client_id', $client->client_id)->get()->result() : $this->db->select('dept_id, dept_name')->from('departments')->where('dept_id', $client->department_id)->get()->result();*/
-
         if ($client->default_user == 1) {
             $this->data['departments'] = $this->db->select('dept_id, dept_name')->from('departments')->where('client_id', $client->client_id)->get()->result();
         } else {
@@ -1183,16 +1186,17 @@ class Member extends Auth_Controller
     {
 
         $columns = array(
-            0 => 'vehicle_id',
+            0 => 'license_plate',
             1 => 'location',
-            2 => 'tolltag',
-            3 => 'vin_no',
-            4 => 'unit',
-            5 => 'color',
-            6 => 'make',
-            7 => 'model',
-            8 => 'end_date',
-            9 => 'license_plate',
+            2 => 'dept_id',
+            3 => 'tolltag',
+            4 => 'vin_no',
+            5 => 'unit',
+            6 => 'color',
+            7 => 'make',
+            8 => 'model',
+            9 => 'start_date',
+            10 => 'end_date',
         );
 
 
@@ -1256,24 +1260,6 @@ class Member extends Auth_Controller
     public function transaction_server_side()
     {
 
-        $columns = array(
-            0 => 'invoice_id',
-            1 => 'license_plate',
-            2 => 'state_code',
-            3 => 'state_code',
-            4 => 'agency_name',
-            5 => 'exit_date_time',
-            6 => 'exit_lane',
-            7 => 'exit_location',
-            8 => 'exit_name',
-            9 => 'toll',
-        );
-
-        $limit = $this->input->post('length');
-        $start = $this->input->post('start');
-        $order = $columns[$this->input->post('order')[0]['column']];
-        $dir = $this->input->post('order')[0]['dir'];
-
         $member = $this->ion_auth->user()->row()->id;
         $org = $this->input->post('org');
         $dept = ($this->input->post('client_dept')) ? $this->input->post('client_dept') : (($this->input->post('member_dept')) ?? 0);
@@ -1282,6 +1268,64 @@ class Member extends Auth_Controller
         $overview_dept = $this->db->like('dept_name', 'overview', 'both')->where('client_id', $client_id)->get('departments')->row()->dept_name;
         $sub_dept = ($this->input->post('member_sub_dept')) ?? 0;
         $group_id = 0;
+
+        if ($org == 'clay_cooley_dealerships' || $org == 'huffines_plano') {
+               $columns = array(
+                    0 => 'license_plate',
+                    1 => 'state_code',
+                    2 => $org.'_invoice.dept_id',
+                    3 => 'agency_name',
+                    4 => 'exit_date_time',
+                    5 => 'exit_lane',
+                    6 => 'exit_location',
+                    7 => 'toll',
+                );
+        } else {
+            if ($org == 'caliber_auto_glass' || $org == 'protech_as') {
+                $columns = array(
+                        0 => 'license_plate',
+                        1 => 'state_code',
+                        2 => $org.'_invoice.dept_id',
+                        3 => 'unit',
+                        4 => 'agency_name',
+                        5 => 'exit_date_time',
+                        6 => 'exit_lane',
+                        7 => 'exit_location',
+                        8 => 'toll',
+                    );
+            } else {
+                if ($org == 'amazon') {
+                     $columns = array(
+                        0 => 'license_plate',
+                        1 => 'state_code',
+                        2 => $org.'_invoice.dept_id',
+                        3 => 'agency_name',
+                        4 => 'exit_date_time',
+                        5 => 'exit_name',
+                        6 => 'class',
+                        7 => 'toll',
+                    );
+                } else {
+                     $columns = array(
+                        0 => 'license_plate',
+                        1 => 'state_code',
+                        2 => $org.'_invoice.dept_id',
+                        3 => 'agency_name',
+                        4 => 'exit_date_time',
+                        5 => 'exit_lane',
+                        6 => 'exit_location',
+                        7 => 'toll',
+                    );
+                    
+                }
+                
+            }
+        }
+
+        $limit = $this->input->post('length');
+        $start = $this->input->post('start');
+        $order = $columns[$this->input->post('order')[0]['column']];
+        $dir = $this->input->post('order')[0]['dir'];
 
         $from = ($this->input->post('from')) ? date('Y-m-d', strtotime($this->input->post('from'))) : 0;
         $to = ($this->input->post('to')) ? date('Y-m-d', strtotime($this->input->post('to'))) : 0;
@@ -1314,8 +1358,8 @@ class Member extends Auth_Controller
                     $nestedData['unit'] = ($post->unit !== null) ? $post->unit : "<center>-</center>";
                     $nestedData['agency_name'] = $post->agency_name;
                     $nestedData['exit_date_time'] = date('m/d/Y H:i:s', strtotime($post->exit_date_time));
-                    ($org !== 'amazon') ? $nestedData['exit_lane'] = $post->exit_lane : $nestedData['exit_lane'] = "<center>-</center>";
-                    ($org !== 'amazon') ? $nestedData['exit_location'] = $post->exit_location : $nestedData['exit_location'] =  $post->exit_name;
+                    $nestedData['exit_lane'] = $post->exit_lane;
+                    $nestedData['exit_location'] = $post->exit_location;
                     $nestedData['toll'] = '$ ' . number_format($post->toll, 2);
                     $nestedData['action'] = '<button type="button" class="btn btn-icon btn-round btn-info" data-toggle="tooltip" data-placement="bottom" title="Dispute transaction" onclick="dispute_status(' . $post->invoice_id . ', \'' . $org . '\')"><i class="fa fa-exclamation-circle"></i></button>';
 
@@ -1328,8 +1372,8 @@ class Member extends Auth_Controller
                     $nestedData['dept'] = ($post->dept_name !== $overview_dept) ? $post->dept_name : "Overview";
                     $nestedData['agency_name'] = $post->agency_name;
                     $nestedData['exit_date_time'] = date('m/d/Y H:i:s', strtotime($post->exit_date_time));
-                    ($org !== 'amazon') ? $nestedData['exit_lane'] = $post->exit_lane : $nestedData['exit_lane'] = "<center>-</center>";
-                    ($org !== 'amazon') ? $nestedData['exit_location'] = $post->exit_location : $nestedData['exit_location'] =  $post->exit_name;
+                    ($org !== 'amazon') ? $nestedData['exit_lane'] = $post->exit_lane : $nestedData['exit_lane'] = $post->exit_name;
+                    ($org !== 'amazon') ? $nestedData['exit_location'] = $post->exit_location : (($post->class !== null) ? $nestedData['exit_location'] =  $post->class :  "<center>-</center>");
                     $nestedData['toll'] = '$ ' . number_format($post->toll, 2);
                     $nestedData['action'] = '<button type="button" class="btn btn-icon btn-round btn-info" data-toggle="tooltip" data-placement="bottom" title="Dispute transaction" onclick="dispute_status(' . $post->invoice_id . ', \'' . $org . '\')"><i class="fa fa-exclamation-circle"></i></button>';
 

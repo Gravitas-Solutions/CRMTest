@@ -19,7 +19,7 @@
 											<div class="table-responsive">
 									               <table id="basic-datatables" class="display table table-striped table-sm  table-bordered table-hover table-head-bg-dark table-condensed" >
 									                   <thead  style="background-color: #EBEBEB;">
-														<th><i class="fa fa-circle-o "></i></th>
+														<th>Status</th>
 														<th><abbr title="License Plate">LP</abbr></th>
 														<th>State</th>
 														<?php if(isset($org)){?>
@@ -34,7 +34,7 @@
 														<th>Start Date</th>
 														<th>End Date</th>
 														<?php if($can_update){ ?>
-														<th>Edit</th>
+														<th class='noExport'>Edit</th>
 														<?php } ?>
 													</thead>
 																	                    <tbody>
@@ -89,7 +89,7 @@
 														<th>Start Date</th>
 														<th>End Date</th>
 														<?php if($can_update){ ?>
-														<th>Edit</th>
+														<th class='noExport'>Edit</th>
 														<?php } ?>				
 													</tfoot>				
 									               </table>

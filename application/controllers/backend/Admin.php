@@ -2099,7 +2099,7 @@ class Admin extends Auth_Controller
             for ($row = 2; $row <= $highestRow; $row++) {
                 if ($client == 'amazon' || $client == 'fleet_serv_pro') {
                     $data[] = array(
-                        'license_plate'  =>($this->db->get_where('vehicles', ['license_plate' => trim($worksheet->getCellByColumnAndRow(0, $row)->getValue())])->row()->vehicle_id) ? trim($worksheet->getCellByColumnAndRow(0, $row)->getValue()) : ($this->db->get_where('vehicles', ['tolltag' => trim($worksheet->getCellByColumnAndRow(0, $row)->getValue())])->row()->license_plate),
+                        'license_plate'  =>($this->db->get_where('vehicles', ['license_plate' => trim($worksheet->getCellByColumnAndRow(0, $row)->getValue())])->row()->vehicle_id) ? trim($worksheet->getCellByColumnAndRow(0, $row)->getValue()) : ((empty($this->db->get_where('vehicles', ['tolltag' => trim($worksheet->getCellByColumnAndRow(0, $row)->getValue())])->row()->license_plate) || ($this->db->get_where('vehicles', ['tolltag' => trim($worksheet->getCellByColumnAndRow(0, $row)->getValue())])->row()->license_plate) == NULL) ? trim($worksheet->getCellByColumnAndRow(0, $row)->getValue()) : $this->db->get_where('vehicles', ['tolltag' => trim($worksheet->getCellByColumnAndRow(0, $row)->getValue())])->row()->license_plate),
                         'state_code'   => $worksheet->getCellByColumnAndRow(1, $row)->getValue(),
                         'agency_name'    => $worksheet->getCellByColumnAndRow(3, $row)->getValue(),
                         'exit_date_time'  => date('Y-m-d H:i:s', strtotime($worksheet->getCellByColumnAndRow(2, $row)->getFormattedValue())),
@@ -2114,7 +2114,7 @@ class Admin extends Auth_Controller
                     );
                 } else {
                     $data[] = array(
-                       'license_plate'  =>($this->db->get_where('vehicles', ['license_plate' => trim($worksheet->getCellByColumnAndRow(0, $row)->getValue())])->row()->vehicle_id) ? trim($worksheet->getCellByColumnAndRow(0, $row)->getValue()) : ($this->db->get_where('vehicles', ['tolltag' => trim($worksheet->getCellByColumnAndRow(0, $row)->getValue())])->row()->license_plate),
+                       'license_plate'  =>($this->db->get_where('vehicles', ['license_plate' => trim($worksheet->getCellByColumnAndRow(0, $row)->getValue())])->row()->vehicle_id) ? trim($worksheet->getCellByColumnAndRow(0, $row)->getValue()) : ((empty($this->db->get_where('vehicles', ['tolltag' => trim($worksheet->getCellByColumnAndRow(0, $row)->getValue())])->row()->license_plate) || ($this->db->get_where('vehicles', ['tolltag' => trim($worksheet->getCellByColumnAndRow(0, $row)->getValue())])->row()->license_plate) == NULL) ? trim($worksheet->getCellByColumnAndRow(0, $row)->getValue()) : $this->db->get_where('vehicles', ['tolltag' => trim($worksheet->getCellByColumnAndRow(0, $row)->getValue())])->row()->license_plate),
                         'state_code'   => $worksheet->getCellByColumnAndRow(1, $row)->getValue(),
                         'agency_name'    => $worksheet->getCellByColumnAndRow(2, $row)->getValue(),
                         'exit_date_time'  => date('Y-m-d H:i:s', strtotime($worksheet->getCellByColumnAndRow(3, $row)->getFormattedValue())),
@@ -3185,6 +3185,7 @@ class Admin extends Auth_Controller
                         'upload_path'   => './uploads/weekly_report',
                         'allowed_types' => 'xls|xlsx|csv',
                         'remove_spaces' => 'TRUE',
+                        'max_size' => 10240,
                         'file_name'      => time() . '_' . $_FILES['report_file']['name']
                     );
                     $this->load->library('upload', $config);
@@ -3236,6 +3237,7 @@ class Admin extends Auth_Controller
                         'upload_path'   => './uploads/weekly_report',
                         'allowed_types' => 'xls|xlsx|csv',
                         'remove_spaces' => 'TRUE',
+                        'max_size' => 10240,
                         'file_name'      => time() . '_' . $_FILES['report_file']['name']
                         );
                         $this->load->library('upload', $config);

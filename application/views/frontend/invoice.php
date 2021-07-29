@@ -25,9 +25,9 @@
 											<tbody>
 												<?php $i = 0; foreach ($invoices as $invoice) {?>
 						                            <tr>
-						                                <td><button href="<?php echo base_url();?>uploads/client_invoices/<?php echo $invoice->pdf;?>" type="button" class="btn btn-icon btn-round btn-danger" data-toggle="tooltip" data-placement="bottom" title="Download PDF">
+						                                <td><a href="<?php echo base_url();?>uploads/client_invoices/<?php echo $invoice->pdf;?>" class="btn btn-icon btn-xs btn-danger" target="_blank" data-toggle="tooltip" data-placement="bottom" title="Download PDF">
 														<i class="fas fa-file-pdf"></i> 
-														</button> | <button href="<?php echo base_url();?>uploads/client_invoices/<?php echo $invoice->excel;?>" type="button" class="btn btn-icon btn-round btn-success" data-toggle="tooltip" data-placement="bottom" title="Download Excel"><i class="fas fa-file-excel"></i></button>
+														</a> | <a href="<?php echo base_url();?>uploads/client_invoices/<?php echo $invoice->excel;?>"class="btn btn-icon btn-xs btn-success" target="_blank" data-toggle="tooltip" data-placement="bottom" title="Download Excel"><i class="fas fa-file-excel"></i></a>
 						                                </td>
 						                                <td><?php echo nice_date($invoice->invoice_date, 'm/d/Y');?></td>
 						                                <td><center><?php echo ($invoice->pay_date == '0000-00-00 00:00:00') ? '<center>-</center> ' : nice_date($invoice->pay_date, 'm/d/Y');?></center></td>

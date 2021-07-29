@@ -291,13 +291,12 @@ class Member_model extends CI_Model
 		}
 		
 		if ($org == 'amazon' || $org == 'fleet_serv_pro') {
-			$this->db->select('exit_name, '.$org.'_invoice.license_plate, tolltag, invoice_id, state_code, agency_name, exit_date_time, date_for, toll, '.$org.'_invoice.unit'.(($org == 'clay_cooley_dealerships') ? ', processed' : ''));
+			$this->db->select('exit_name, license_plate, invoice_id, state_code, agency_name, exit_date_time, date_for, toll, unit'.(($org == 'clay_cooley_dealerships') ? ', processed' : ''));
 		} else {
-			$this->db->select($org.'_invoice.license_plate, state_code, invoice_id, agency_name, vin_no, tolltag, exit_date_time, date_for, toll, exit_lane, exit_location, '.$org.'_invoice.unit'.(($org == 'clay_cooley_dealerships') ? ', processed' : ''));
+			$this->db->select('license_plate, state_code, invoice_id, agency_name, exit_date_time, date_for, toll, exit_lane, exit_location, unit'.(($org == 'clay_cooley_dealerships') ? ', processed' : ''));
 		}
 		
 		$this->db->from($org.'_invoice');
-		$this->db->join('vehicles', 'vehicles.license_plate = '.$org.'_invoice.license_plate', 'left');
 		$this->db->where($org.'_invoice.date_for like ', $last_dump.'%');
 		$this->db->where('dispute', 1);
 		if($dept != 0){$this->db->where($org.'_invoice.dept_id', $dept);}
@@ -821,7 +820,7 @@ class Member_model extends CI_Model
 		}
 		
 		if ($org == 'amazon' || $org == 'fleet_serv_pro') {
-			$this->db->select('exit_name, '.$org.'_invoice.license_plate, unit, invoice_id, state_code, agency_name, exit_date_time, toll, dept_name');
+			$this->db->select('exit_name, '.$org.'_invoice.license_plate, unit, invoice_id, state_code, agency_name, exit_date_time, toll, dept_name, class');
 		} else {
 			$this->db->select($org.'_invoice.license_plate, state_code, unit, invoice_id, agency_name, exit_date_time, toll, exit_lane, exit_location, dept_name');
 		}

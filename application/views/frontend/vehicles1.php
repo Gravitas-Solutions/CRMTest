@@ -34,7 +34,7 @@
 									                            <th>Model</th>
 									                            <th>Start Date</th>
 									                            <th>End Date</th>
-																<th>Edit</th>
+																<th class='noExport'>Edit</th>
 									                    </thead>				
 									               </table>
 									           </div>
@@ -664,6 +664,9 @@ $(document).ready(function(){
 		        { responsivePriority: 10001, targets: -2 },
 		        { responsivePriority: 2, targets: -1 }
 		    ],
+		    columnDefs: [
+			    { orderable: false, targets: 11 }
+			  ],
             dom: 'Blfrtip',
 				buttons: [
 					{
@@ -680,8 +683,8 @@ $(document).ready(function(){
 						extend:    'pdfHtml5',
 						text:      '<i class="fa fa-file-pdf"></i>',
 						titleAttr: 'Export to PDF',
-						orientation: 'portrait', 
-						pageSize: 'A4',
+						orientation: 'landscape', 
+					pageSize: 'LEGAL',
 						exportOptions: {
 							columns: "thead th:not(.noExport)"
 						  },

@@ -43,7 +43,7 @@
 										<th>Exit Lane</th>
 										<th>Exit Location</th>
 										<th>Amount</th>
-										<th>Action</th>
+										<th class='noExport'>Action</th>
 										</tr>
 									</thead>
 									<tbody></tbody>
@@ -62,7 +62,7 @@
 										<th>Exit Lane</th>
 										<th>Exit Location</th>
 										<th>Amount</th>				
-										<th>Action</th>
+										<th class='noExport'>Action</th>
 										</tr>			
 									</tfoot>
 								</table>
@@ -298,8 +298,8 @@ $(document).ready(function() {
 					extend:    'pdfHtml5',
 					text:      '<i class="fa fa-file-pdf"></i>',
 					titleAttr: 'Export to PDF',
-					orientation: 'portrait', 
-					pageSize: 'A4',
+					orientation: 'landscape', 
+					pageSize: 'LEGAL',
 					exportOptions: {
 						columns: "thead th:not(.noExport)"
 					  },
@@ -357,6 +357,9 @@ $(document).ready(function() {
 			          { "data": "toll" },
 			          { "data": "action" },
 			       ],
+	       	columnDefs: [
+			    { orderable: false, targets: 9 }
+			  ],
 			footerCallback: function ( row, data, start, end, display ) {
 				var api = this.api(), data;
 	 

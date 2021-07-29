@@ -61,7 +61,7 @@
 										<th>Exit Lane</th>
 										<th>Exit Location</th>
 										<th>Amount</th>
-										<th>Action</th>
+										<th class='noExport'>Action</th>
 									</thead>
 									<tbody>
 										<?php $total = 0; foreach (array_unique($transactions, SORT_REGULAR) as $transaction) {
@@ -111,7 +111,7 @@
 										<th>Exit Lane</th>
 										<th>Exit Location</th>
 										<th>Amount</th>				
-										<th>Action</th>				
+										<th class='noExport'>Action</th>				
 									</tfoot>
 								</table>
 								<p><button id="process-tolls" class="btn btn-outline btn-xs btn-primary"><i class="fa fa-filter"></i> Charge back selected transactions</button></p>
@@ -432,8 +432,8 @@ $(function() {
 				extend:    'pdfHtml5',
 				text:      '<i class="fa fa-file-pdf"></i>',
 				titleAttr: 'Export to PDF',
-				orientation: 'portrait', 
-				pageSize: 'A4',
+				orientation: 'landscape', 
+				pageSize: 'LEGAL',
 				exportOptions: {
 					columns: "thead th:not(.noExport)"
 				  },

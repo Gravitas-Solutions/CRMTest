@@ -236,7 +236,7 @@ function delete_weekly_report(id){
                         </div>
                          <div class="col-md-2"><label class="control-label"> Amount:</label></div>
                         <div class="col-md-4">
-                           <input name="amount" placeholder="Total Amount" class="form-control" type="text" />
+                           <input name="amount" placeholder="Total Amount" class="form-control" type="number" required min="0" value="0.00" step=".01"/>
                         </div>
                     </div>
                 </div>
