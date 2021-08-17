@@ -1,0 +1,7 @@
+{
+  "baseUrl": "https://crm.innovativesolutionstest.com",
+  "viewportWidth": 1920,
+  "viewportHeight": 1080,
+  "testFiles": "**/*-spec.js",
+  "projectId": "ca78k4"
+}
