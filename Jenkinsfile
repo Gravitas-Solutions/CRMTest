@@ -1,13 +1,14 @@
 pipeline {
-  agent { docker { image 'cypress/base:10' } }
+  agent { 
+    docker { 
+      image 'cypress/base:10' 
+    } 
+  }
 
   stages {
     stage('build and test') {
       environment {
-        // we will be recording test results and video on Cypress dashboard
-        // to record we need to set an environment variable
-        // we can load the record key variable from credentials store
-        // see https://jenkins.io/doc/book/using/using-credentials/
+        HOME="."
         CYPRESS_RECORD_KEY = credentials('7c83da05-0a2f-416e-b953-9d3488975693')
       }
 
