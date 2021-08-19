@@ -191,13 +191,6 @@ services:
       - 443
     container_name: trucking_crm
 
-  e2e-chrome:
-    image: "cypress/included:7.7.0"
-    command: "--browser chrome"
-    volumes:
-      - ./cypress:/cypress
-      - ./cypress.json:/cypress.json
-
 networks:
   default:
     external:
