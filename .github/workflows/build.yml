@@ -23,4 +23,4 @@ jobs:
         #   -Dsonar.host.url=http://41.212.85.79:12345
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        SONAR_HOST_URL: http://41.212.85.79:12345
