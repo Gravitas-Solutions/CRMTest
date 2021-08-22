@@ -1,27 +1,45 @@
+# on:
+#   # Trigger analysis when pushing in master or pull requests, and when creating
+#   # a pull request. 
+#   push:
+#     branches:
+#       - master
+
+# name: Main Workflow
+# jobs:
+#   sonarqube:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - uses: actions/checkout@v2
+#       with:
+#         # Disabling shallow clone is recommended for improving relevancy of reporting
+#         fetch-depth: 0
+#     - name: SonarQube Scan
+#       uses: sonarsource/sonarqube-scan-action@master
+#       with:
+#         projectBaseDir: application
+#         args: >
+#           -X
+#         #   -Dsonar.qualitygate.wait=true
+#         #   -Dsonar.host.url=http://41.212.85.79:12345
+#       env:
+#         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#         SONAR_HOST_URL: http://41.212.85.79:12345
+
+name: Build
 on:
-  # Trigger analysis when pushing in master or pull requests, and when creating
-  # a pull request. 
   push:
     branches:
-      - master
-
-name: Main Workflow
+      - master # or the name of your main branch
 jobs:
-  sonarqube:
+  build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-      with:
-        # Disabling shallow clone is recommended for improving relevancy of reporting
-        fetch-depth: 0
-    - name: SonarQube Scan
-      uses: sonarsource/sonarqube-scan-action@master
-      with:
-        projectBaseDir: application
-        args: >
-          -X
-        #   -Dsonar.qualitygate.wait=true
-        #   -Dsonar.host.url=http://41.212.85.79:12345
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        SONAR_HOST_URL: http://41.212.85.79:12345
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: sonarsource/sonarqube-scan-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}

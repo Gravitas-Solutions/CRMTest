@@ -1,0 +1,6 @@
+projectKey=CRMTest0
+serverUrl=http://41.212.85.79:12345
+serverVersion=9.0.1.46107
+dashboardUrl=http://41.212.85.79:12345/dashboard?id=CRMTest0
+ceTaskId=AXttgsCm8vhbhygnAAwY
+ceTaskUrl=http://41.212.85.79:12345/api/ce/task?id=AXttgsCm8vhbhygnAAwY
