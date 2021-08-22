@@ -18,7 +18,8 @@ jobs:
       uses: sonarsource/sonarqube-scan-action@master
       with:
         projectBaseDir: application
-        # args: >
+        args: >
+          -X
         #   -Dsonar.qualitygate.wait=true
         #   -Dsonar.host.url=http://41.212.85.79:12345
       env:
