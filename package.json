@@ -23,6 +23,9 @@
     "test:ci:firefox": "node ./test-examples --firefox",
     "test:ci:windows": "node ./test-examples --windows",
     "test:ci:windows:record": "node ./test-examples --windows --record",
+    "build:ci": "react-scripts build",
+    "types": "tsc --noEmit",
+    "test:unit:ci": "react-scripts test --watchAll false --ci --runInBand",
     "warn-only": "stop-only --warn --folder examples --skip node_modules"
   },
   "repository": {
