@@ -17,7 +17,7 @@
     "cypress:info": "cypress info",
     "cypress:verify": "cypress verify",
     "cypress:version": "cypress version",
-    "lint": "eslint examples",
+    "lint": "eslint spec",
     "lint:json": "eslint --ext .json integration",
     "start": "echo Call npm start from each example subfolder!",
     "stop-only": "stop-only --folder examples --skip node_modules --skip dist --skip .cache --skip build",
