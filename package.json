@@ -4,11 +4,26 @@
   "description": "runs ui tests on crm client-side",
   "main": "index.js",
   "dependencies": {
-    "package.json": "^2.0.1"
+    "package.json": "^2.0.1",
+    "semver": "^7.3.5"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "cypress:info": "cypress info",
+    "cypress:verify": "cypress verify",
+    "cypress:version": "cypress version",
+    "lint": "eslint examples",
+    "lint:json": "eslint --ext .json integration",
+    "start": "echo Call npm start from each example subfolder!",
+    "stop-only": "stop-only --folder examples --skip node_modules --skip dist --skip .cache --skip build",
+    "test:ci": "node ./test-examples",
+    "test:ci:brave": "node ./test-examples --brave",
+    "test:ci:chrome": "node ./test-examples --chrome",
+    "test:ci:chrome:headless": "node ./test-examples --chrome --headless",
+    "test:ci:firefox": "node ./test-examples --firefox",
+    "test:ci:windows": "node ./test-examples --windows",
+    "test:ci:windows:record": "node ./test-examples --windows --record",
+    "warn-only": "stop-only --warn --folder examples --skip node_modules"
   },
   "repository": {
     "type": "git",
