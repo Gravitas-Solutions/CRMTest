@@ -4,7 +4,10 @@
   "description": "runs ui tests on crm client-side",
   "main": "index.js",
   "dependencies": {
+    "fs": "0.0.1-security",
     "package.json": "^2.0.1",
+    "pdf-parse": "^1.1.1",
+    "read-excel-file": "^5.2.9",
     "semver": "^7.3.5"
   },
   "devDependencies": {
