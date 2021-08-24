@@ -72,7 +72,7 @@ describe('Vehicles page tests', () => {
 
     it('Test adding single vehicle', () => {
         cy.visit('/vehicles');
-        cy.wait(2000)
+        cy.get('button').contains('Vehicles').click();
         cy.add_dummy_vehicle();
     })
 })
