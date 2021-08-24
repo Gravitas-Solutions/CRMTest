@@ -72,6 +72,7 @@ describe('Vehicles page tests', () => {
 
     it('Test adding single vehicle', () => {
         cy.visit('/vehicles');
+        cy.wait(2000)
         cy.add_dummy_vehicle();
     })
 })
