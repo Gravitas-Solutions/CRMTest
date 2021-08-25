@@ -28,13 +28,13 @@ jobs:
           # pass the project ID from the secrets through environment variable
           CYPRESS_PROJECT_ID: ${{ secrets.PROJECT_ID }}
 
-      - name: Cypress run Firefox
+      - name: Cypress run Edge
         uses: cypress-io/github-action@v2
         with:
-          browser: firefox
+          browser: edge
           record: true
           parallel: true
-          group: 'firefox-browser'
+          group: 'edge-browser'
         env:
           # pass the Dashboard record key as an environment variable
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
@@ -43,13 +43,13 @@ jobs:
           # pass the project ID from the secrets through environment variable
           CYPRESS_PROJECT_ID: ${{ secrets.PROJECT_ID }}
 
-      - name: Cypress run Edge
+      - name: Cypress run Firefox
         uses: cypress-io/github-action@v2
         with:
-          browser: edge
+          browser: firefox
           record: true
           parallel: true
-          group: 'edge-browser'
+          group: 'firefox-browser'
         env:
           # pass the Dashboard record key as an environment variable
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
