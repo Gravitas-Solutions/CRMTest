@@ -32,6 +32,7 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           browser: firefox
+          record: true
           parallel: true
           group: 'firefox-browser'
 
@@ -39,5 +40,6 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           browser: edge
+          record: true
           parallel: true
           group: 'edge-browser'
