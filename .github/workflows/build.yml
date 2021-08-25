@@ -27,3 +27,17 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # pass the project ID from the secrets through environment variable
           CYPRESS_PROJECT_ID: ${{ secrets.PROJECT_ID }}
+
+      - name: Cypress run Firefox
+        uses: cypress-io/github-action@v2
+        with:
+          browser: firefox
+          parallel: true
+          group: 'firefox-browser'
+
+      - name: Cypress run Edge
+        uses: cypress-io/github-action@v2
+        with:
+          browser: edge
+          parallel: true
+          group: 'edge-browser'
