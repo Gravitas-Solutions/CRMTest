@@ -2,16 +2,20 @@ describe('Logging into crm', () => {
     it('Attempts login with correct credentials', () => {
         cy.visit('/login');
 
-        const email = "info@protechas.com";
+        const identity = "info@protechas.com";
         const password = "InN0V81V06";
 
-        cy.get('input[name=identity]')
-            .type(email)
-            .should('have.value', email);
+        cy.request({
+            method: 'POST',
+            url: '/login',
+            form: true,
+            body: {
+                identity,
+                password,
+            },
+        })
 
-        cy.get('input[name=password]').type(password);
-
-        cy.contains('Login').click();
+        cy.visit('/home');
 
         cy.url().should('include', '/home');
 

@@ -10,12 +10,20 @@
 //
 //
 // -- This is a parent command --
-Cypress.Commands.add('login', (email, password) => {
+Cypress.Commands.add('login', (identity, password) => {
     cy.visit('/')
     
-    cy.get('input[name=identity]').type(email)
-    cy.get('input[name=password]').type(password)
-    cy.get('form').submit()
+    cy.request({
+        method: 'POST',
+        url: '/login',
+        form: true,
+        body: {
+            identity,
+            password,
+        },
+    })
+
+    cy.visit('/home');
 
     cy.wait(2000)
 })

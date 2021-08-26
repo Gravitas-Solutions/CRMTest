@@ -1,4 +1,3 @@
-// @ts-check
 const path = require('path')
 
 /**
@@ -11,7 +10,7 @@ export const deleteDownloadsFolder = () => {
   cy.task('deleteFolder', downloadsFolder)
 }
 
-export const validateExcelFile = () => {
+export const validateExcelFile = (record) => {
   const downloadsFolder = Cypress.config('downloadsFolder')
   const downloadedFilename = path.join(downloadsFolder, 'Innovative Toll.xlsx')
 
@@ -33,7 +32,7 @@ export const validateExcelFile = () => {
   // the downloaded file using cy.task
   cy.task('readExcelFile', downloadedFilename)
   // returns an array of lines read from Excel file
-  .should('have.length', 4)
+  .should('have.length', record)
   .then((list) => {
     expect(list[0], 'header line').to.deep.equal([
       'First name', 'Last name', 'Occupation', 'Age', 'City', 'State',

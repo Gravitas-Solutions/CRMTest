@@ -1,35 +1,34 @@
+import {
+    validateExcelFile,
+    deleteDownloadsFolder,
+} from './utils'
+const path = require('path')
+
 describe('Vehicles page tests', () => {
     const email = "info@protechas.com";
     const password = "InN0V81V06";
 
     beforeEach(() => {
         cy.login(email, password);
+        deleteDownloadsFolder();
     })
     afterEach(() => {
         cy.visit('/logout');
     })
-
-    // it('checks vehicle page elements and basic functions', () => {
-
+    
+    // it('Downloads excel file', () => {
     //     cy.get('[class$=text-right]').then(($dd) => {
-    //         const vehicles = $dd.eq(1).text();
+    //         var vehicles = $dd.eq(1).text();
+    //         vehicles = parseInt(vehicles)+1;
 
     //         cy.visit('/vehicles');
     //         cy.table_exists();
 
-    //         cy.get('div[role=status]').within(() => {
-    //             cy.contains(vehicles)
-    //                 .should('exist');
-    //         })
+    //         cy.get('button[class^=dt-button]').eq(0).click()
 
-    //         cy.test_table_length();
-    //         cy.test_page_nav();
+    //         cy.log('**confirm downloaded file**')
 
-    //         cy.get('button').contains('Vehicles').click();
-    //         cy.get('form[id$=vehicle]').should('be.visible');
-    //         cy.get('button').contains('Save').click();
-    //         cy.get('div[class$=danger]').should('be.visible');
-    //         cy.add_dummy_vehicle();
+    //         validateExcelFile(vehicles)
     //     })
     // })
 

@@ -1,5 +1,3 @@
-// @ts-check
-/// <reference types="cypress" />
 import {
     validateExcelFile,
     // validateBinaryFile, 
